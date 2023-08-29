@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const bodyparser = require('body-parser')
+const nodemailer = require('nodemailer')
 
 
 const app = express();
@@ -26,6 +27,19 @@ app.post('/login',(req,res) => {
     .catch(err => {
         console.log(err);
         res.send({login:false})
+    })
+})
+
+
+app.post('/forgotpassword',(req,res) => {
+    Login.find({username:req.body.uname})
+    .then(res1 => {
+        if(res1.length > 0) {
+            res.status(200).json(true);
+        }
+        else{
+            res.status(404).json(false);
+        }
     })
 })
 
