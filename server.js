@@ -120,8 +120,9 @@ app.post('/forgotpassword',(req,res) => {
 })
 
 app.post('/resetpassword',(req,res) => {
+    console.log(req.body);
     const uname = req.body.uname;
-    const pass = req.body.pwd;
+    const pass = req.body.pass;
     Login.updateOne({username:uname},{$set:{password:pass}})
     .then((response) => {
         response.acknowledged ? res.status(200).json(true)  : res.status(404).json(false);
