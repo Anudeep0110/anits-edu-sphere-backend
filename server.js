@@ -97,15 +97,15 @@ app.post('/forgotpassword',(req,res) => {
                     <div class="content">
                       <p>Hello,</p>
                       <p>We received a request to reset your password. To proceed, click the button below:</p>
-                      <p><a class="btn" href="http://localhost:3000/resetpassword">Reset Password</a></p>
+                      <p><a class="btn" href="http://localhost:3000/sreset/${req.body.uname}" >Reset Password</a></p>
                       <p>If you didn't request a password reset, please ignore this email.</p>
                       <p>Best regards,<br>Anits Edusphere</p>
                     </div>
                   </div>
                 </body>
                 </html>
-                `
-            };
+                ` 
+            }; 
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
                     return error.message
