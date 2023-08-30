@@ -124,6 +124,7 @@ app.post('/resetpassword',(req,res) => {
     const pass = req.body.pwd;
     Login.updateOne({username:uname},{$set:{password:pass}})
     .then((response) => {
+        response.acknowledged ? res.status(200).json(true)  : res.status(404).json(false);
         console.log(response);
     })
 })
