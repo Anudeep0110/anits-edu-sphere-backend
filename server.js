@@ -28,9 +28,9 @@ app.post('/login',(req,res) => {
     Login.find({username:uname,password:pwd})
     .then(response => {
         if(response.length>0){
-            res.send({login:true})
+            res.status(200).send({login:true,role:response[0].role})
         }else{
-            res.send({login:false})
+            res.status(404).send({login:false})
         }
     }) 
     .catch(err => {
