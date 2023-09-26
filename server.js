@@ -115,8 +115,11 @@ app.post('/forgotpassword',(req,res) => {
             res.status(200).json(true);
         }
         else{
-            res.status(404).json(false);
+            res.status(200).json(false);
         }
+    })
+    .catch((err) => {
+      res.status(500).json(false);
     })
 })
 
