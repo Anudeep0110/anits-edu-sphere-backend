@@ -17,8 +17,8 @@ const Login  = require('./Schemas/Login')
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'anitsquiz01@gmail.com',
-        pass: 'xdrsndeyvghifkjw',
+        user: 'anitsedusphere@gmail.com',
+        pass: 'iovvrcwolushgbcg',
     },
 });
 
@@ -44,8 +44,8 @@ app.post('/forgotpassword',(req,res) => {
     .then(res1 => {
         if(res1.length > 0) {
             const mailOptions = {
-                from : 'anitsquiz01@gmail.com',
-                to : res1[0].mailId,
+                from : 'anitsedusphere@gmail.com',
+                to : res1[0].username,
                 subject : 'Password Recovery Mail',
                 html: `<!DOCTYPE html>
                 <html>
@@ -92,12 +92,12 @@ app.post('/forgotpassword',(req,res) => {
                   <div class="container">
                     <div class="header">
                       <img src="https://onlinesystem.anits.edu.in/images/logo.png" alt="Logo">
-                      <h1>Password Reset</h1>
+                      <h1 class="">Password Reset</h1>
                     </div>
                     <div class="content">
-                      <p>Hello,</p>
+                      <p>Hello,</p> 
                       <p>We received a request to reset your password. To proceed, click the button below:</p>
-                      <p><a class="btn" href="http://localhost:3000/sreset/${req.body.uname}" >Reset Password</a></p>
+                      <p style="color:'white'"><a class="btn" href="http://localhost:3000/sreset/${req.body.euname}">Reset Password</a></p>
                       <p>If you didn't request a password reset, please ignore this email.</p>
                       <p>Best regards,<br>Anits Edusphere</p>
                     </div>
@@ -105,9 +105,10 @@ app.post('/forgotpassword',(req,res) => {
                 </body>
                 </html>
                 ` 
-            }; 
+            };  
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
+                  console.log(error)
                     return error.message
                 }
             });    
