@@ -17,25 +17,27 @@ const Login  = require('./Schemas/Login')
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'anitsedusphere@gmail.com',
-        pass: 'iovvrcwolushgbcg',
+        user: 'anitsedusphere2000@gmail.com',
+        pass: 'bmlsiuptkwcbfcis',
     },
 });
 
 app.post('/login',(req,res) => {
     const uname = req.body.uname
     const pwd = req.body.pwd
+    console.log(uname,pwd);
     Login.find({username:uname,password:pwd})
     .then(response => {
+      console.log(response);
         if(response.length>0){
             res.status(200).send({login:true,role:response[0].role})
         }else{
-            res.status(404).send({login:false})
+            res.status(200).send({login:false})
         }
     }) 
     .catch(err => {
         console.log(err);
-        res.send({login:false})
+        res.status(404).send({login:false})
     })
 })
 
@@ -44,7 +46,7 @@ app.post('/forgotpassword',(req,res) => {
     .then(res1 => {
         if(res1.length > 0) {
             const mailOptions = {
-                from : 'anitsedusphere@gmail.com',
+                from : 'anitsedusphere2000@gmail.com',
                 to : res1[0].username,
                 subject : 'Password Recovery Mail',
                 html: `<!DOCTYPE html>
