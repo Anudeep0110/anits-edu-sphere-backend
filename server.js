@@ -12,6 +12,7 @@ app.use(express.urlencoded({extended:true}))
 // MongoDB Databases
 const connexion = require('./connexion')
 const Login  = require('./Schemas/Login')
+const Forms = require('./Schemas/Forms')
 
 // node mailer
 const transporter = nodemailer.createTransport({
@@ -25,12 +26,11 @@ const transporter = nodemailer.createTransport({
 app.post('/login',(req,res) => {
     const uname = req.body.uname
     const pwd = req.body.pwd
-    console.log(uname,pwd);
     Login.find({username:uname,password:pwd})
     .then(response => {
       console.log(response);
         if(response.length>0){
-            res.status(200).send({login:true,role:response[0].role})
+            res.status(200).send({login:true,role:response[0].role,fname:response[0].fullname})
         }else{
             res.status(200).send({login:false})
         }
@@ -39,6 +39,29 @@ app.post('/login',(req,res) => {
         console.log(err);
         res.status(404).send({login:false})
     })
+})
+
+
+app.post('/getforms',async (req,res) => {
+  const role = req.body.role;
+  await Forms.find({role:role},{_id:1,formname:1})
+  .then(response => {
+    res.status(200).send(response)
+  })
+  .catch(err => {
+    res.status(404).send(err)
+  })
+})
+
+app.post('/getform',async (req,res) => {
+  const id = req.body.id;
+  await Forms.findById(id)
+  .then(response => {
+    res.status(200).send(response)
+  })
+  .catch(err => {
+    res.status(404).send(err)
+  })
 })
 
 app.post('/forgotpassword',(req,res) => {
