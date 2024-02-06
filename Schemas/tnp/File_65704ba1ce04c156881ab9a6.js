@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 // Form name: Organizing Entrepreneurship development programs to motivate the students to become entrepreneurs
 const FormSchema = new mongoose.Schema({
-    // Columns with their respective types
     ProgramID: String,
     ProgramName: String,
     Date: String,

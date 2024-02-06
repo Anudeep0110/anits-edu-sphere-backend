@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 // Form name: Internships
 const FormSchema = new mongoose.Schema({
-    // Columns with their respective types
     InternshipID: String,
     StudentID: String,
     CompanyName: String,
