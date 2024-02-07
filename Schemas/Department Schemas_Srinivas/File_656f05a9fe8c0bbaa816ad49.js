@@ -12,4 +12,4 @@ const Form = new mongoose.Schema({
     activityCreator:String
 })
 
-module.exports = mongoose.model('forms',Form)
+module.exports = mongoose.model('file_656f05a9fe8c0bbaa816ad49',Form)

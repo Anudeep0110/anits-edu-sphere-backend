@@ -15,4 +15,4 @@ const Form = new mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('forms',Form)
+module.exports = mongoose.model('file_65716dff05e2b60f8c04191a',Form)

@@ -16,8 +16,6 @@ const Form = new mongoose.Schema({
     employerHigherEducationInstitution:String, 
     awardsDistinctions:String
 
-
-
 })
 
-module.exports = mongoose.model('forms',Form)
+module.exports = mongoose.model('file_65716efa05e2b60f8c04191b',Form)

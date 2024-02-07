@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')    //Academic performance in second year only (Average GPA)
+const mongoose = require('mongoose')    // Academic performance in second year only (Average GPA)
 
 const Form = new mongoose.Schema({
     studentName:String,
@@ -12,4 +12,4 @@ const Form = new mongoose.Schema({
     rankSecondYear:String
 })
 
-module.exports = mongoose.model('forms',Form)
+module.exports = mongoose.model('file_65716fd005e2b60f8c04191c',Form)

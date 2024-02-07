@@ -10,4 +10,4 @@ const Form = new mongoose.Schema({
     courseCertificateURL:String
 })
 
-module.exports = mongoose.model('forms',Form)
+module.exports = mongoose.model('file_656f0655fe8c0bbaa816ad4a',Form)
