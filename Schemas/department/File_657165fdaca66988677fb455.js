@@ -6,10 +6,10 @@ const Form = new mongoose.Schema({
     name:String,
     department:String,
     branch:String,
-    placementYear:Number,
+    placementYear:String,
     companyName:String,
     designation:String,
-    salary:Number,
+    salary:String,
     placementStatus:String
 })
 

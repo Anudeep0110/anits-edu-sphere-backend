@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Form name: Internships
-const FormSchema = new mongoose.Schema({
+const Form = new mongoose.Schema({
     InternshipID: String,
     StudentID: String,
     CompanyName: String,

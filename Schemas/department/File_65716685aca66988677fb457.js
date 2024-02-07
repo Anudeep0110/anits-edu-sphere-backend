@@ -2,14 +2,14 @@ const mongoose = require('mongoose')
 
 const Form = new mongoose.Schema({
     studentId:String,
-    fundingReceived:Number,
+    fundingReceived:String,
     name:String,
     department:String,
     branch:String,
     startupName:String,
     natureOfBusiness:String,
-    yearOfFounding:Number,
-    teamSize:Number,
+    yearOfFounding:String,
+    teamSize:String,
     currentStatus:String
 })
 

@@ -16,8 +16,7 @@ const Forms = require('./Schemas/Forms')
 
 
 // MongoDB Schema Names
-
-
+const formSchemas = require('./imports')
 
 // node mailer
 const transporter = nodemailer.createTransport({
@@ -169,7 +168,8 @@ app.post('/sendtodb',(req,res) => {
   console.log(req.body)
   const data = req.body.data
   const id = req.body.formid
-  formSchemas[id].insertOne(data)
+  console.log(formSchemas[id]);
+  formSchemas[id].insertMany(data)
   .then(response => {
     console.log(response)
   })

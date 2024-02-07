@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Form name: Organizing Entrepreneurship development programs to motivate the students to become entrepreneurs
-const FormSchema = new mongoose.Schema({
+const Form = new mongoose.Schema({
     ProgramID: String,
     ProgramName: String,
     Date: String,
@@ -15,4 +15,4 @@ const FormSchema = new mongoose.Schema({
     Feedback: String,
 });
 
-module.exports = mongoose.model('file_65704ba1ce04c156881ab9a6', FormSchema);
+module.exports = mongoose.model('file_65704ba1ce04c156881ab9a6', Form);

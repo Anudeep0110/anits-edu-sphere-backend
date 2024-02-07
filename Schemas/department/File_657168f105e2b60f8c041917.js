@@ -3,10 +3,10 @@ const mongoose = require('mongoose')    // Extension programs conducted
 const Form = new mongoose.Schema({
     programTitle:String,
     departmentOrganizer:String,
-    targetAudience:Number,
-    programDuration:Number, 
+    targetAudience:String,
+    programDuration:String, 
     programDates:String, 
-    programFee:Number, 
+    programFee:String, 
     programObjectives:String, 
     programContentModules:String, 
     instructorsSpeakers:String,

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Form name: Number Of Core Companies
-const FormSchema = new mongoose.Schema({
+const Form = new mongoose.Schema({
     // Columns with their respective types
     Department: String,
     CompanyName: String,

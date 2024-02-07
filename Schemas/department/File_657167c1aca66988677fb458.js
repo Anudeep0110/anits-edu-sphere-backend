@@ -6,10 +6,10 @@ const Form = new mongoose.Schema({
     examinationName:String,
     level:String,
     rankScore:String,
-    year:Number,
+    year:String,
     subjectCategory:String,
     collegeAdmitted:String,
-    admissionYear:Number
+    admissionYear:String
 })
 
 module.exports = mongoose.model('file_657167c1aca66988677fb458',Form)

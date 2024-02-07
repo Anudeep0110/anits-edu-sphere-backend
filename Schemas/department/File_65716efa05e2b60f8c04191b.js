@@ -5,7 +5,7 @@ const Form = new mongoose.Schema({
     registrationNumber:String,
     departmentProgram:String, 
     degreeAwarded:String, 
-    specialization:Number, 
+    specialization:String, 
     yearOfGraduation:String, 
     semesterOfGraduation:String, 
     cgpa:String,

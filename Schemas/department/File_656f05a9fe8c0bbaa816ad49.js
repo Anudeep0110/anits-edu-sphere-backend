@@ -6,7 +6,7 @@ const Form = new mongoose.Schema({
     activityDescription:String,
     activityType:String, 
     activityObjectives:String, 
-    activitySteps:Number, 
+    activitySteps:String, 
     activityAssessment:String, 
     activityResources:String, 
     activityCreator:String

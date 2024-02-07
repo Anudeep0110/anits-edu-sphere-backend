@@ -10,7 +10,7 @@ const Form = new mongoose.Schema({
     location:String,
     industry:String,
     objectiveOfVisit:String,
-    numberOfParticipants:Number,
+    numberOfParticipants:String,
     facultyInCharge:String,
     accompanyingStaff:String,
     activitiesConducted:String,

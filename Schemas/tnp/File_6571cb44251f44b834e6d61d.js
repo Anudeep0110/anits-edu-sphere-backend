@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Form name: Enhancing Alumni Connect & Inculcating Students Driven Approach
-const FormSchema = new mongoose.Schema({
+const Form = new mongoose.Schema({
 
     EventName: String,
     EventDate: String,

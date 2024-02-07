@@ -6,9 +6,9 @@ const Form = new mongoose.Schema({
     designation:String,
     recognitionDate:String, 
     recognitionType:String, 
-    areaOfExpertise:Number, 
-    noOfGuidedStudentsMS:Number, 
-    noOfGuidedStudentsPhD:Number, 
+    areaOfExpertise:String, 
+    noOfGuidedStudentsMS:String, 
+    noOfGuidedStudentsPhD:String, 
     researchPublications:String,
     researchAwardsGrants:String, 
     impactOfResearchGuidance:String

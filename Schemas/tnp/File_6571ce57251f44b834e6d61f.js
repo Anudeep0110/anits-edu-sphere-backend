@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Form name: Career Development Programmes organized
-const FormSchema = new mongoose.Schema({
+const Form = new mongoose.Schema({
     // Columns with their respective types
     ProgramName: String,
     StartDate: String,

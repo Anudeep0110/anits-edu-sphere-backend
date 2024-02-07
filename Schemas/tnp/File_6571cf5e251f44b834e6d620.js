@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Form name: Online tests conducted for campus readiness
-const FormSchema = new mongoose.Schema({
+const Form = new mongoose.Schema({
     TestName: String,
     TestDate: String,
     Departments: String,

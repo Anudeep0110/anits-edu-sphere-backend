@@ -7,8 +7,8 @@ const Form = new mongoose.Schema({
     branch:String,
     degree:String,
     university:String,
-    yearOfAdmission:Number,
-    yearOfCompletion:Number,
+    yearOfAdmission:String,
+    yearOfCompletion:String,
     ongoing:String,
     researchArea:String
 })

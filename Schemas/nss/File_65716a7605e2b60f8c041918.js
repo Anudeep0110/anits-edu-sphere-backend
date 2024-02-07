@@ -7,7 +7,7 @@ const Form = new mongoose.Schema({
     programDates:String,
     programActivityEvent:String,
     programLocation:String,
-    numberOfParticipants:Number,
+    numberOfParticipants:String,
     programObjectives:String,   
     programDescription:String,
     programResources:String,

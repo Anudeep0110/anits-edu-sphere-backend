@@ -6,7 +6,7 @@ const Form = new mongoose.Schema({
     departmentCollege:String,
     partnerInstitution:String, 
     mouDate:String, 
-    mouDuration:Number, 
+    mouDuration:String, 
     areasOfCollaboration:String, 
     collaborationActivities:String, 
     intellectualPropertyOwnership:String,

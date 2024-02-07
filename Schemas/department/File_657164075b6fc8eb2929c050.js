@@ -9,7 +9,7 @@ const Form = new mongoose.Schema({
     awardDate:String, 
     projectTitle:String, 
     projectDescription:String, 
-    totalFundingAmount:Number, 
+    totalFundingAmount:String, 
     publicationOutcomes:String
 })
 

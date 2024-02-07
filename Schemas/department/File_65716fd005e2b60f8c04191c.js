@@ -6,9 +6,9 @@ const Form = new mongoose.Schema({
     departmentProgram:String,
     yearOfEnrollment:String, 
     secondYearGpa:String, 
-    numberOfSubjectsTaken:Number, 
-    sgpaSemesters3And4:Number, 
-    backlogsSecondYear:Number, 
+    numberOfSubjectsTaken:String, 
+    sgpaSemesters3And4:String, 
+    backlogsSecondYear:String, 
     rankSecondYear:String
 })
 

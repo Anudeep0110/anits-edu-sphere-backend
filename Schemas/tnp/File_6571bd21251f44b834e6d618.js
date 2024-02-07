@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Form name: Placements
-const FormSchema = new mongoose.Schema({
+const Form = new mongoose.Schema({
     StudentID: String,
     StudentName: String,
     Department: String,

@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 
 const Form = new mongoose.Schema({
     departmentName:String,
-    year:Number,
+    year:String,
     category:String,
     awardMedalLevel:String,
-    numberOfAwardsMedals:Number,
+    numberOfAwardsMedals:String,
     details:String
 })
 

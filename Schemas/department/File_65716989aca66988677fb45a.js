@@ -4,12 +4,12 @@ const Form = new mongoose.Schema({
     activityName:String,
     targetAudience:String,
     activityDate:String,
-    durationHours:Number,
+    durationHours:String,
     resourcePersons:String,
     methodologyDeliveryMode:String,
     keySoftSkillsCovered:String,
     outcomesEvaluation:String,
-    resourceMaterials:Number
+    resourceMaterials:String
 })
 
 module.exports = mongoose.model('file_65716989aca66988677fb45a',Form)

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Form name: MoUs for Enhanced Employability of Students
-const FormSchema = new mongoose.Schema({
+const Form = new mongoose.Schema({
     // Columns with their respective types
     OrganisationName: String,
     TypeOfCollab: String,

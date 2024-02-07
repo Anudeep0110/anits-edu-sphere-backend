@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Form name: Mock Interviews and group discussion organized
-const FormSchema = new mongoose.Schema({
+const Form = new mongoose.Schema({
     EventName: String,
     EventDate: String,
     EventOutcome: String,
