@@ -10,4 +10,4 @@ const FormSchema = new mongoose.Schema({
     Pointofcontact: String,
 });
 
-module.exports = mongoose.model('File_6571c984251f44b834e6d61c', Form);
+module.exports = mongoose.model('file_6571c984251f44b834e6d61c', Form);

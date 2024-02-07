@@ -10,4 +10,4 @@ const FormSchema = new mongoose.Schema({
     CollabarationType: String,
 });
 
-module.exports = mongoose.model('File_6571cccb251f44b834e6d61e', Form);
+module.exports = mongoose.model('file_6571cccb251f44b834e6d61e', Form);

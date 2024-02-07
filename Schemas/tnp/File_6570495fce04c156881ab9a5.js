@@ -13,4 +13,4 @@ const FormSchema = new mongoose.Schema({
     FollowUpDate:String,
 });
 
-module.exports = mongoose.model('File_6570495fce04c156881ab9a5', Form);
+module.exports = mongoose.model('file_6570495fce04c156881ab9a5', Form);

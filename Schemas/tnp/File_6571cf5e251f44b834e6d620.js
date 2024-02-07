@@ -8,4 +8,4 @@ const FormSchema = new mongoose.Schema({
     ParticipantCount: Number,
 });
 
-module.exports = mongoose.model('File_6571cf5e251f44b834e6d620', Form);
+module.exports = mongoose.model('file_6571cf5e251f44b834e6d620', Form);

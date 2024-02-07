@@ -15,4 +15,4 @@ const FormSchema = new mongoose.Schema({
     Feedback: String,
 });
 
-module.exports = mongoose.model('File_65704ba1ce04c156881ab9a6', FormSchema);
+module.exports = mongoose.model('file_65704ba1ce04c156881ab9a6', FormSchema);

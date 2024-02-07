@@ -10,4 +10,4 @@ const FormSchema = new mongoose.Schema({
     Speakers: String,
 });
 
-module.exports = mongoose.model('File_6571ce57251f44b834e6d61f', Form);
+module.exports = mongoose.model('file_6571ce57251f44b834e6d61f', Form);

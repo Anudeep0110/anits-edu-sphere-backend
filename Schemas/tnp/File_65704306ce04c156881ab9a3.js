@@ -14,4 +14,4 @@ const FormSchema = new mongoose.Schema({
     HoursPerWeek: Number,
 });
 
-module.exports = mongoose.model('File_65704306ce04c156881ab9a3', Form);
+module.exports = mongoose.model('file_65704306ce04c156881ab9a3', Form);

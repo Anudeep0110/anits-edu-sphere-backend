@@ -9,4 +9,4 @@ const FormSchema = new mongoose.Schema({
     GradYear: Number,
 });
 
-module.exports = mongoose.model('File_6571c08e251f44b834e6d619', Form);
+module.exports = mongoose.model('file_6571c08e251f44b834e6d619', Form);

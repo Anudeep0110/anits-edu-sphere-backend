@@ -11,4 +11,4 @@ const FormSchema = new mongoose.Schema({
     Package: String,
 });
 
-module.exports = mongoose.model('File_6571bd21251f44b834e6d618', Form);
+module.exports = mongoose.model('file_6571bd21251f44b834e6d618', Form);
