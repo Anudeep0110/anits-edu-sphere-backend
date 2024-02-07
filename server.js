@@ -13,14 +13,11 @@ app.use(express.urlencoded({extended:true}))
 const connexion = require('./connexion')
 const Login  = require('./Schemas/Login')
 const Forms = require('./Schemas/Forms')
-const File_656ef65a7dd34d6f52905f3d = require('./Schemas/Department Schemas - Rushi/File_656ef65a7dd34d6f52905f3d')
 
 
 // MongoDB Schema Names
 
-const formSchemas = {
-  '656ef65a7dd34d6f52905f3d':File_656ef65a7dd34d6f52905f3d
-}
+
 
 // node mailer
 const transporter = nodemailer.createTransport({
