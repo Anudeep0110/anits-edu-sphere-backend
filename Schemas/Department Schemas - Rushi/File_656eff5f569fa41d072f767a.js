@@ -12,4 +12,4 @@ const Form = new mongoose.Schema({
     resourcePerson:String,
 });
 
-module.exports = mongoose.model('forms',Form)
+module.exports = mongoose.model('file_656eff5f569fa41d072f767a',Form)

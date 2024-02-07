@@ -18,4 +18,4 @@ const Form = new mongoose.Schema({
     feedback:String,
 });
 
-module.exports = mongoose.model('forms',Form)
+module.exports = mongoose.model('file_656efeb5569fa41d072f7679',Form)

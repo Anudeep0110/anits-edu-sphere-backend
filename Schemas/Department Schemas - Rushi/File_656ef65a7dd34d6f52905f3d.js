@@ -8,4 +8,4 @@ const Form = new mongoose.Schema({
     percentageOfNewCourses:Number,
 });
 
-module.exports = mongoose.model('forms',Form)
+module.exports = mongoose.model('file_656ef65a7dd34d6f52905f3d',Form)

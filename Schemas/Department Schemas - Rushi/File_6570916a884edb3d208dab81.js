@@ -9,4 +9,4 @@ const Form = new mongoose.Schema({
     chiefEditor:String,
 });
 
-module.exports = mongoose.model('forms',Form)
+module.exports = mongoose.model('file_6570916a884edb3d208dab81',Form)

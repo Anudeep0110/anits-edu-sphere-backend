@@ -24,4 +24,4 @@ const Form = new mongoose.Schema({
     workshopFeedback:String,
 });
 
-module.exports = mongoose.model('forms',Form)
+module.exports = mongoose.model('file_657090da884edb3d208dab7e',Form)

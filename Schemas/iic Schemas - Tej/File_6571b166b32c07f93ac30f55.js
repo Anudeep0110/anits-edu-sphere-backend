@@ -14,4 +14,4 @@ const Form = new mongoose.Schema({
     StartupPromotion:String,
 });
 
-module.exports = mongoose.model('forms',Form)
+module.exports = mongoose.model('file_6571b166b32c07f93ac30f55',Form)
