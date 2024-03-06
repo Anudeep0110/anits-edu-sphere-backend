@@ -21,6 +21,9 @@ const tnpSchema = require('./imports')
 const deptSchema = require('./imports')
 const nssSchema = require('./imports')
 const iicSchema = require('./imports')
+const facultySchema = require('./imports')
+const studentSchema = require('./imports')
+const iqacSchema = require('./imports')
 
 
 

@@ -55,6 +55,34 @@ const File_6571b784b32c07f93ac30f5a = require('./Schemas/iic/File_6571b784b32c07
 const File_6571b822b32c07f93ac30f5b = require('./Schemas/iic/File_6571b822b32c07f93ac30f5b.js');
 const File_6571b879b32c07f93ac30f5c = require('./Schemas/iic/File_6571b879b32c07f93ac30f5c.js');
 const File_6571b8e7b32c07f93ac30f5d = require('./Schemas/iic/File_6571b8e7b32c07f93ac30f5d.js');
+const File_656b2561988da5fb17a661f1 = require('./Schemas/faculty/File_656b2561988da5fb17a661f1.js');
+const File_656ec057d60332f945d29f86 = require('./Schemas/faculty/File_656ec057d60332f945d29f86.js');
+const File_656ec115d60332f945d29f87 = require('./Schemas/faculty/File_656ec115d60332f945d29f87.js');
+const File_656ec279d60332f945d29f88 = require('./Schemas/faculty/File_656ec279d60332f945d29f88.js');
+const File_656ec404d60332f945d29f89 = require('./Schemas/faculty/File_656ec404d60332f945d29f89.js');  
+const File_656b26cf988da5fb17a661f3 = require('./Schemas/student/File_656b26cf988da5fb17a661f3.js');
+const File_656ec917d60332f945d29f8f = require('./Schemas/student/File_656ec917d60332f945d29f8f.js');
+const File_656ec96ad60332f945d29f90 = require('./Schemas/student/File_656ec96ad60332f945d29f90.js');
+const File_656ec9dad60332f945d29f91 = require('./Schemas/student/File_656ec9dad60332f945d29f91.js');
+const File_657173dc61bb8cdadc446935 = require('./Schemas/iqac/File_657173dc61bb8cdadc446935.js');
+const File_6571761661bb8cdadc446936 = require('./Schemas/iqac/File_6571761661bb8cdadc446936.js');
+const File_6571779061bb8cdadc446937 = require('./Schemas/iqac/File_6571779061bb8cdadc446937.js');
+const File_65717f1961bb8cdadc446938 = require('./Schemas/iqac/File_65717f1961bb8cdadc446938.js');
+const File_6571806c61bb8cdadc446939 = require('./Schemas/iqac/File_6571806c61bb8cdadc446939.js');
+const File_6571818261bb8cdadc44693a = require('./Schemas/iqac/File_6571818261bb8cdadc44693a.js');
+const File_657183c261bb8cdadc44693b = require('./Schemas/iqac/File_657183c261bb8cdadc44693b.js');
+const File_657186a861bb8cdadc44693c = require('./Schemas/iqac/File_657186a861bb8cdadc44693c.js');
+const File_65718a5761bb8cdadc44693d = require('./Schemas/iqac/File_65718a5761bb8cdadc44693d.js');
+
+
+
+
+
+
+
+
+
+
 
 
 const formSchemas = {
@@ -114,8 +142,49 @@ const formSchemas = {
   "65716bb105e2b60f8c041919": File_65716bb105e2b60f8c041919,
   "65716dff05e2b60f8c04191a": File_65716dff05e2b60f8c04191a,
   "65716efa05e2b60f8c04191b": File_65716efa05e2b60f8c04191b,
-  "65716fd005e2b60f8c04191c": File_65716fd005e2b60f8c04191c
+  "65716fd005e2b60f8c04191c": File_65716fd005e2b60f8c04191c,
+  "656b2561988da5fb17a661f1": File_656b2561988da5fb17a661f1,
+"656ec057d60332f945d29f86": File_656ec057d60332f945d29f86,
+"656ec115d60332f945d29f87": File_656ec115d60332f945d29f87,
+"656ec279d60332f945d29f88": File_656ec279d60332f945d29f88,
+"656ec404d60332f945d29f89": File_656ec404d60332f945d29f89,
+"656b26cf988da5fb17a661f3": File_656b26cf988da5fb17a661f3,
+"656ec917d60332f945d29f8f": File_656ec917d60332f945d29f8f,
+"656ec96ad60332f945d29f90": File_656ec96ad60332f945d29f90,
+"656ec9dad60332f945d29f91": File_656ec9dad60332f945d29f91,
+"657173dc61bb8cdadc446935": File_657173dc61bb8cdadc446935,
+"6571761661bb8cdadc446936": File_6571761661bb8cdadc446936,
+"6571779061bb8cdadc446937": File_6571779061bb8cdadc446937,
+"65717f1961bb8cdadc446938": File_65717f1961bb8cdadc446938,
+"6571806c61bb8cdadc446939": File_6571806c61bb8cdadc446939,
+"6571818261bb8cdadc44693a": File_6571818261bb8cdadc44693a,
+"657183c261bb8cdadc44693b": File_657183c261bb8cdadc44693b,
+"657186a861bb8cdadc44693c": File_657186a861bb8cdadc44693c,
+"65718a5761bb8cdadc44693d": File_65718a5761bb8cdadc44693d,
+
+
+
+
   }
+
+  const facultySchema = {
+    "File_656b2561988da5fb17a661f1": File_656b2561988da5fb17a661f1,
+    "File_656ec057d60332f945d29f86": File_656ec057d60332f945d29f86,
+    "File_656ec115d60332f945d29f87": File_656ec115d60332f945d29f87,
+    "File_656ec279d60332f945d29f88": File_656ec279d60332f945d29f88,
+    "File_656ec404d60332f945d29f89": File_656ec404d60332f945d29f89,
+    "File_656b26cf988da5fb17a661f3": File_656b26cf988da5fb17a661f3,
+    "File_656ec917d60332f945d29f8f": File_656ec917d60332f945d29f8f,
+    "File_656ec96ad60332f945d29f90": File_656ec96ad60332f945d29f90,
+    "File_656ec9dad60332f945d29f91": File_656ec9dad60332f945d29f91
+  };
+
+  const studentSchema = {
+    "File_656b26cf988da5fb17a661f3": File_656b26cf988da5fb17a661f3,
+    "File_656ec917d60332f945d29f8f": File_656ec917d60332f945d29f8f,
+    "File_656ec96ad60332f945d29f90": File_656ec96ad60332f945d29f90,
+    "File_656ec9dad60332f945d29f91": File_656ec9dad60332f945d29f91
+  };
 
   const iicSchema = {
     "File_6571af02b32c07f93ac30f54": File_6571af02b32c07f93ac30f54,
@@ -133,6 +202,18 @@ const formSchemas = {
   const nssSchema = {
     "File_657168f105e2b60f8c041917": File_657168f105e2b60f8c041917,
     "File_65716a7605e2b60f8c041918": File_65716a7605e2b60f8c041918
+  };
+
+  const iqacSchema = {
+    "File_657173dc61bb8cdadc446935": File_657173dc61bb8cdadc446935,
+    "File_6571761661bb8cdadc446936": File_6571761661bb8cdadc446936,
+    "File_6571779061bb8cdadc446937": File_6571779061bb8cdadc446937,
+    "File_65717f1961bb8cdadc446938": File_65717f1961bb8cdadc446938,
+    "File_6571806c61bb8cdadc446939": File_6571806c61bb8cdadc446939,
+    "File_6571818261bb8cdadc44693a": File_6571818261bb8cdadc44693a,
+    "File_657183c261bb8cdadc44693b": File_657183c261bb8cdadc44693b,
+    "File_657186a861bb8cdadc44693c": File_657186a861bb8cdadc44693c,
+    "File_65718a5761bb8cdadc44693d": File_65718a5761bb8cdadc44693d
   };
 
 
@@ -190,14 +271,14 @@ const formSchemas = {
 
 
 
-
-
-
-
   module.exports = {
     formSchemas,
     deptSchema,
     tnpSchema,
     nssSchema,
-    iicSchema
+    iicSchema,
+    facultySchema,
+    studentSchema,
+    iqacSchema
   };
+

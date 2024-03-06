@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const Login = new mongoose.Schema({
+const Form = new mongoose.Schema({
     conferenceTitle:String,
     conferenceDates:String,
     conferenceVenue:String,
