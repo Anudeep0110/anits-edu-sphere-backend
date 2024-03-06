@@ -17,6 +17,12 @@ const Forms = require('./Schemas/Forms')
 
 // MongoDB Schema Names
 const formSchemas = require('./imports')
+const tnpSchema = require('./imports')
+const deptSchema = require('./imports')
+const nssSchema = require('./imports')
+const iicSchema = require('./imports')
+
+
 
 // node mailer
 const transporter = nodemailer.createTransport({

@@ -194,4 +194,10 @@ const formSchemas = {
 
 
 
-  module.exports = formSchemas;
+  module.exports = {
+    formSchemas,
+    deptSchema,
+    tnpSchema,
+    nssSchema,
+    iicSchema
+  };
