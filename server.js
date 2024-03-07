@@ -172,6 +172,35 @@ app.post('/resetpassword',(req,res) => {
     })
 })
 
+app.post('/getformnames',(req,res) => {
+  const role = req.body.role;
+  Forms.find({role:role},{formname:1})
+  .then(response => {
+    res.status(200).json(response)
+  })
+  .catch(err => {
+    res.status(404).json(err)
+  })
+})
+
+
+app.post('/getformdata',(req,res) => {
+  const id = req.body.id;
+  formSchemas[id].find({})
+  .then(response => {
+    res.status(200).json(response)
+  })
+  .catch(err => {
+    res.status(404).json(err)
+  })
+})
+
+
+
+
+
+
+
 
 app.post('/sendtodb',(req,res) => {
   console.log(req.body)
