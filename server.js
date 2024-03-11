@@ -16,14 +16,16 @@ const Forms = require('./Schemas/Forms')
 
 
 // MongoDB Schema Names
-const formSchemas = require('./imports')
-const tnpSchema = require('./imports')
-const deptSchema = require('./imports')
-const nssSchema = require('./imports')
-const iicSchema = require('./imports')
-const facultySchema = require('./imports')
-const studentSchema = require('./imports')
-const iqacSchema = require('./imports')
+const {
+  formSchemas,
+  deptSchema,
+  tnpSchema,
+  nssSchema,
+  iicSchema,
+  facultySchema,
+  studentSchema,
+  iqacSchema
+} = require('./imports');
 
 
 
@@ -43,7 +45,7 @@ app.post('/login',(req,res) => {
     .then(response => {
       console.log(response);
         if(response.length>0){
-            res.status(200).send({login:true,role:response[0].role,fname:response[0].fullname})
+            res.status(200).send({login:true,role:response[0].role,fname:response[0].fullname,dept:response[0].department})
         }else{
             res.status(200).send({login:false})
         }
@@ -174,7 +176,7 @@ app.post('/resetpassword',(req,res) => {
 
 app.post('/getformnames',(req,res) => {
   const role = req.body.role;
-  Forms.find({role:role},{formname:1})
+  Forms.find({role:role},{_id:1,formname:1})
   .then(response => {
     res.status(200).json(response)
   })
@@ -186,7 +188,21 @@ app.post('/getformnames',(req,res) => {
 
 app.post('/getformdata',(req,res) => {
   const id = req.body.id;
-  formSchemas[id].find({})
+  console.log(id);
+  console.log(formSchemas[id]);
+  formSchemas[id].find({},{_id:0})
+  .then(response => {
+    res.status(200).json(response)
+  })
+  .catch(err => {
+    res.status(404).json(err)
+  })
+})
+
+
+app.post('/getcolnames',(req,res) => {
+  const id = req.body.id;
+  Forms.findById(id)
   .then(response => {
     res.status(200).json(response)
   })
@@ -206,7 +222,6 @@ app.post('/sendtodb',(req,res) => {
   console.log(req.body)
   const data = req.body.data
   const id = req.body.formid
-  console.log(formSchemas[id]);
   formSchemas[id].insertMany(data)
   .then(response => {
     console.log(response)

@@ -161,11 +161,7 @@ const formSchemas = {
 "657183c261bb8cdadc44693b": File_657183c261bb8cdadc44693b,
 "657186a861bb8cdadc44693c": File_657186a861bb8cdadc44693c,
 "65718a5761bb8cdadc44693d": File_65718a5761bb8cdadc44693d,
-
-
-
-
-  }
+}
 
   const facultySchema = {
     "File_656b2561988da5fb17a661f1": File_656b2561988da5fb17a661f1,
