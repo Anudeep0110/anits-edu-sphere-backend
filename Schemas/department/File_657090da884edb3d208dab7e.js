@@ -7,6 +7,7 @@
 const mongoose = require('mongoose')
 
 const Form = new mongoose.Schema({
+    dept_id:String,
     workshopTitle:String,
     workshopOrganizer:String,
     organizerDesignation:String,

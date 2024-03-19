@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 // Form name: MoUs for Enhanced Employability of Students
 const Form = new mongoose.Schema({
     // Columns with their respective types
+    tnp_id:String,
     OrganisationName: String,
     TypeOfCollab: String,
     StartDate: String,

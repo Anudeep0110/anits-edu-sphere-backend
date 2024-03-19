@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')    // Functional MoUs
 
 const Form = new mongoose.Schema({
+    dept_id:String,
     mouTitle:String,
     activityName:String,
     departmentCollege:String,

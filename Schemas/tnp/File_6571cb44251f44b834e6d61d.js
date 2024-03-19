@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Form name: Enhancing Alumni Connect & Inculcating Students Driven Approach
 const Form = new mongoose.Schema({
-
+    tnp_id:String,
     EventName: String,
     EventDate: String,
     AluminiName: String,

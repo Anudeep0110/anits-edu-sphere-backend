@@ -3,6 +3,7 @@
 const mongoose = require('mongoose')
 
 const Form = new mongoose.Schema({
+    dept_id:String,
     yearOfPublication:String,
     nameOfArticle:String,
     editorialBoard:String,

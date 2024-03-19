@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')    // Department activity working model
 
 const Form = new mongoose.Schema({
+    dept_id:String,
     activityId:String,
     activityName:String,
     activityDescription:String,

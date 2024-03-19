@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 // Form name: Number Of Companies
 const Form = new mongoose.Schema({
     // Columns with their respective types
+    tnp_id:String,
     CompanyName: String,
     TotalPlacements: Number,
     GradYear: Number,

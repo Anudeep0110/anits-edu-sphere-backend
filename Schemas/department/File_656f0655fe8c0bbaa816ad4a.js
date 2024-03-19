@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')  // NPTEL/SWAYAM courses completed by students 
 
 const Form = new mongoose.Schema({
+    dept_id:String,
     studentName:String,
     studentId:String,
     courseTitle:String,

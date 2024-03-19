@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 //formname:Field visit for problem identification
 const Form = new mongoose.Schema({
+    iic_id:String,
     VisitID:String,
 Date:String,
 Location:String,

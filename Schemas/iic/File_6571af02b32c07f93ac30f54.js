@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 //formname: Collaboration Linkages (Mo Us) with Higher Educational Institutions for promoting innovation and startup
 const Form = new mongoose.Schema({
+    iic_id:String,
     CollaborationID:String,
     InstitutionName:String,
     MoUorAgreementType:String,

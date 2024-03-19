@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 // Form name: Organizing subject / domain specific Technical skills Training by experts
 const Form = new mongoose.Schema({
+    tnp_id:String,
     TrainingID: String,
     SubjectDomain: String,
     ExpertName: String,

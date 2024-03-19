@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 //formname:Inter/Intra Institutional Idea Competition/Challenge/Hackathon
 const Form = new mongoose.Schema({
+    iic_id:String,
     CompetitionID:String,
     EventName:String,
     Date:String,

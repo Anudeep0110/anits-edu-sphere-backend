@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')    // Functional collaboration with premier institutions
 
 const Form = new mongoose.Schema({
+    dept_id:String,
     partnerInstitution:String,
     departmentCollege:String,
     collaborationStartDate:String, 

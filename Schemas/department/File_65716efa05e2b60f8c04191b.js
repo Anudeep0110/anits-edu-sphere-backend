@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')    // Students graduated in stipulated period of study
 
 const Form = new mongoose.Schema({
+    dept_id:String,
     studentName:String,
     registrationNumber:String,
     departmentProgram:String, 

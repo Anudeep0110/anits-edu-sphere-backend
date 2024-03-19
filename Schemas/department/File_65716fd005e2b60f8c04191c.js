@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')    // Academic performance in second year only (Average GPA)
 
 const Form = new mongoose.Schema({
+    dept_id:String,
     studentName:String,
     registrationNumber:String,
     departmentProgram:String,

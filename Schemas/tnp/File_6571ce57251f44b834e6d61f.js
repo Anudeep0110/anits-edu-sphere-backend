@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 // Form name: Career Development Programmes organized
 const Form = new mongoose.Schema({
     // Columns with their respective types
+    tnp_id:String,
     ProgramName: String,
     StartDate: String,
     EndDate: String,

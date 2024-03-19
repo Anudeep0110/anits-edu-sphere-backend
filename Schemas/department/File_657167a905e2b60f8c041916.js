@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')    // Teachers recognised as research guides
 
 const Form = new mongoose.Schema({
+    dept_id:String,
     teacherName:String,
     department:String,
     designation:String,

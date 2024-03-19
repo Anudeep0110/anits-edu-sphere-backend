@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 //Form name: Value added courses/ Certificate courses organized
 
 const Form = new mongoose.Schema({
+    dept_id:String,
     academicYear:String,
     typeOfCourse:String,
     courseTitle:String,

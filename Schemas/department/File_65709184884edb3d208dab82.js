@@ -8,6 +8,7 @@
 const mongoose = require('mongoose')
 
 const Form = new mongoose.Schema({
+    dept_id:String,
     courseCode:String,
     courseName:String,
     offeredBy:String,

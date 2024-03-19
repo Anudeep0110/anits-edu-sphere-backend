@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 //formname:MHRD Ratings
 const Form = new mongoose.Schema({
+    iic_id:String,
     CollegeID:String,
 CollegeName:String,
 Year:String,

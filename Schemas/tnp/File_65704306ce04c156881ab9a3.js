@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 // Form name: Internships
 const Form = new mongoose.Schema({
+    tnp_id:String,
     InternshipID: String,
     StudentID: String,
     CompanyName: String,

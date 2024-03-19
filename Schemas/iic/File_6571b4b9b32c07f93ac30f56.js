@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 //formname:Formal Collaboration Linkages (MoUs) with Repute Industry Associations to promote and support Innovation and Startup Agenda in campus 
 const Form = new mongoose.Schema({
+    iic_id:String,
     CollaborationID:String,
     AssociationName:String,
     MoUorAgreementType:String,

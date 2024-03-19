@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')    // Outreach programs conducted 
 
 const Form = new mongoose.Schema({
+    dept_id:String,
     programTitle:String,
     departmentOrganizer:String,
     targetAudience:String,

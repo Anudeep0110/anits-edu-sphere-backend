@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 // Form name: Placements
 const Form = new mongoose.Schema({
+    tnp_id:String,
     StudentID: String,
     StudentName: String,
     Department: String,

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 // Form name: Online tests conducted for campus readiness
 const Form = new mongoose.Schema({
+    tnp_id:String,
     TestName: String,
     TestDate: String,
     Departments: String,

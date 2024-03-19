@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const Form = new mongoose.Schema({
+    iqac_id:String,
     serialNumber:Number,
     workshopTitle:String,
     workshopDate:Number,

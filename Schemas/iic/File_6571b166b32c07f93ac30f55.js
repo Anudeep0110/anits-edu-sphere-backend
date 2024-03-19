@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 //formname: Collaboration Linkages (MoUs) with Incubation units for promoting innovation and startup
 const Form = new mongoose.Schema({
+    iic_id:String,
     CollaborationID:String,
     IncubationUnitName:String,
     MoUorAgreementType:String,

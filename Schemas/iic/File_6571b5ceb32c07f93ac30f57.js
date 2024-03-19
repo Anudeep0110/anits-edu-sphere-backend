@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 //formname: Formal Collaboration Linkages (MoUs) with National Knowledge Agencies to promote and support Innovation and Startup Agenda in campus
 const Form = new mongoose.Schema({
+    iic_id:String,
     CollaborationID:String,
     AgencyName:String,
     MoUorAgreementType:String,

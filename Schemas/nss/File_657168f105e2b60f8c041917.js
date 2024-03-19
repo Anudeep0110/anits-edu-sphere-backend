@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 //formname:Activities on Entrepreneurship
 const Form = new mongoose.Schema({
+    nss_id:String,
     programTitle:String,
     departmentOrganizer:String,
     targetAudience:String,

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 // Form name: Career Counselling for pursuing higher studies
 const Form = new mongoose.Schema({
+    tnp_id:String,
     CounselingID: String,
     StudentID: String,
     CounselorName: String,

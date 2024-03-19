@@ -2,6 +2,7 @@
 const mongoose = require('mongoose')
 
 const Form = new mongoose.Schema({
+    dept_id:String,
     laboratoryName:String,
     collaboratingIndustry:String,
     collaborationType:String,
