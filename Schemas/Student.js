@@ -1,62 +1,64 @@
 const mongoose = require('mongoose');
 
-// Define schema for students collection
+// Define student schema
 const studentSchema = new mongoose.Schema({
-  // Personal Information
-  name: {
+  first_name: {
     type: String,
+    required: true
   },
-  dob: {
+  middle_name: {
+    type: String,
+    required: false
+  },
+  last_name: {
+    type: String,
+    required: true
+  },
+  date_of_birth: {
     type: Date,
+    required: true
   },
   gender: {
     type: String,
     enum: ['Male', 'Female', 'Other'],
+    required: true
   },
-  address: {
-    type: String,
-  },
-  contact_number: {
-    type: String,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  
-  // Academic Information
-  roll_number: {
+  regno: {
     type: String,
     required: true,
     unique: true
   },
   department: {
     type: String,
+    required: true,
+    default: 'csmd'
   },
-  course: {
+  section: {
     type: String,
+    required: true,
+    default: 'csm'
   },
-  batch: {
+  contact: {
+    type: String,
+    required: false
+  },
+  email: {
+    type: String,
+    required: false
+  },
+  from_year: {
     type: Number,
+    required: true,
+    default: 2020
   },
-  admission_date: {
-    type: Date,
-  },
-  
-  // NAAC Inspection Related Information
-  attendance_percentage: {
+  to_year: {
     type: Number,
-  },
-  marks_percentage: {
-    type: Number,
-  },
-  feedback: {
-    type: String
+    required: true,
+    default: 2024
   }
 });
 
-// Create model from schema
-const Student = mongoose.model('studentdetails', studentSchema);
+// Create a Mongoose model
+const Student = mongoose.model('students', studentSchema);
 
 module.exports = Student;

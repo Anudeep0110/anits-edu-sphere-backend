@@ -13,6 +13,7 @@ app.use(express.urlencoded({extended:true}))
 const connexion = require('./connexion')
 const Login  = require('./Schemas/Login')
 const Forms = require('./Schemas/Forms')
+const Students = require('./Schemas/Student')
 
 
 // MongoDB Schema Names
@@ -228,6 +229,28 @@ app.post('/sendtodb',(req,res) => {
   })
   .catch(err => {
     console.log(err)
+  })
+})
+
+
+app.post('/getstudents',(req,res) => {
+  Students.find({department:req.body.dept})
+  .then(response => {
+    res.status(200).json(response)
+  })
+  .catch(err => {
+    res.status(404).json(err)
+  })
+})
+
+
+app.post('/getstudentdetails',(req,res) => {
+  Students.findById(req.body.id)
+  .then(response => {
+    res.status(200).json(response)
+  })
+  .catch(err => {
+    res.status(404).json(err)
   })
 })
 
