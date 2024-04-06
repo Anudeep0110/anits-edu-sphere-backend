@@ -46,7 +46,7 @@ app.post('/login',(req,res) => {
     .then(response => {
       console.log(response);
         if(response.length>0){
-            res.status(200).send({login:true,role:response[0].role,fname:response[0].fullname,dept:response[0].department})
+            res.status(200).send({login:true,regno:response[0].regno,role:response[0].role,fname:response[0].fullname,dept:response[0].department})
         }else{
             res.status(200).send({login:false})
         }
@@ -245,8 +245,9 @@ app.post('/getstudents',(req,res) => {
 
 
 app.post('/getstudentdetails',(req,res) => {
-  Students.findById(req.body.id)
+  Students.find({regno:req.body.id})
   .then(response => {
+    console.log(response);
     res.status(200).json(response)
   })
   .catch(err => {
