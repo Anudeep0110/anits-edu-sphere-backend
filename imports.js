@@ -82,9 +82,6 @@ const File_65718a5761bb8cdadc44693d = require('./Schemas/iqac/File_65718a5761bb8
 
 
 
-
-
-
 const formSchemas = {
     "656b264f988da5fb17a661f2": File_656b264f988da5fb17a661f2,
     "656ec4e7d60332f945d29f8a": File_656ec4e7d60332f945d29f8a,
@@ -275,6 +272,7 @@ const formSchemas = {
     iicSchema,
     facultySchema,
     studentSchema,
-    iqacSchema
+    iqacSchema,
+   
   };
 

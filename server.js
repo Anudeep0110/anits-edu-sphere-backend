@@ -14,7 +14,7 @@ const connexion = require('./connexion')
 const Login  = require('./Schemas/Login')
 const Forms = require('./Schemas/Forms')
 const Students = require('./Schemas/Student')
-
+const Approvals = require('./Schemas/approvals')
 
 // MongoDB Schema Names
 const {
@@ -211,12 +211,25 @@ app.post('/getcolnames',(req,res) => {
     res.status(404).json(err)
   })
 })
-
-
-
-
-
-
+app.post('/sendtoapprovals', async(req, res) => {
+  const { formid, data } = req.body;
+  try {
+    const form = await Forms.findById(formid);
+    if (!form) {
+        return res.status(404).json({ success: false, message: 'Form not found' });
+    }
+    if (form.role === 'student' || form.role === 'faculty') {
+        const insertedData = await Approvals.create({ formid, data, approval: "pending" });
+        res.status(200).json({ success: true, message: 'Data inserted successfully', data: insertedData });
+    } 
+    else {
+      formSchemas[formid].insertMany(data )
+            }
+} catch (error) {
+  console.error('Error inserting data into approvals collection:', error);
+  res.status(500).json({ success: false, message: 'Failed to insert data', error: error.message });
+}
+});
 
 
 app.post('/sendtodb',(req,res) => {
@@ -253,6 +266,43 @@ app.post('/getstudentdetails',(req,res) => {
     res.status(404).json(err)
   })
 })
+app.post('/getapprovals', async (req, res) => {
+  try {
+      const { formid } = req.body;
+      const approvals = await Approvals.find({ formid, approval: 'pending' }, { data: 1, _id: 1 });
+      res.json(approvals);
+  } catch (error) {
+      console.error('Error fetching approvals:', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/approve', async (req, res) => {
+  const { id, status } = req.body;
+
+  try {
+      // Update the approval status in the database
+      const updatedApproval = await Approvals.findByIdAndUpdate(id, { approval: status }, { new: true });
+      if (updatedApproval) {
+          if (status === 'accepted') {
+            
+              // Find the respective form by ID and update the data field with approvals.data
+              const form = await formSchemas[updatedApproval.formid].insertMany(updatedApproval.data )
+              console.log(form)
+              console.log(updatedApproval)
+              res.status(200).json({ updatedApproval, form });
+          } else {
+            console.log(updatedApproval)
+              res.status(200).json(updatedApproval);
+          }
+      } else {
+          return res.status(404).json({ error: 'Approval not found' });
+      }
+  } catch (error) {
+      console.error('Error updating approval:', error);
+      res.status(500).json({ error: 'An error occurred while updating the approval' });
+  }
+});
 
 app.listen(8000,() => {
     console.log("Listening on 8000");
