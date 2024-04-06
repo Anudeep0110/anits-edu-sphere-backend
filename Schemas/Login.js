@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const Login = new mongoose.Schema({
+    regno:String,
     fullname:String,
     username:String,
     password:String,
