@@ -2,6 +2,8 @@ const express = require('express')
 const cors = require('cors')
 const bodyparser = require('body-parser')
 const nodemailer = require('nodemailer')
+const multer = require('multer')
+const XLSX = require('xlsx')
 
 
 const app = express();
@@ -27,6 +29,7 @@ const {
   studentSchema,
   iqacSchema
 } = require('./imports');
+const Student = require('./Schemas/Student')
 
 
 
@@ -304,6 +307,76 @@ app.post('/approve', async (req, res) => {
       res.status(500).json({ error: 'An error occurred while updating the approval' });
   }
 });
+
+
+app.get('/getforms',async (req,res) => {
+  await Forms.find({})
+  .then(response => {
+    res.status(200).send(response)
+  })
+  .catch(err => {
+    res.status(404).send(err)
+  })
+})
+
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+app.post('/importapi/addstudent',upload.single('file') , async (req,res) => {
+    try{
+      const workbook = XLSX.read(req.file.buffer, {type: 'buffer'});
+      const sheet_name_list = workbook.SheetNames;
+      const xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
+      console.log(xlData);
+      Students.insertMany(xlData)
+      .then(response => {
+        if(response.length > 0){
+          res.status(200).json('success')
+        }else{
+          res.status(200).json('failed')
+        }
+      })
+      .catch(err => {
+        res.status(500).json('failed')
+      })
+    }catch(err){
+        console.log(err);
+    }
+})
+
+app.post('/importapi/addfaculty',upload.single('file') , async (req,res) => {
+  try{
+    const workbook = XLSX.read(req.file.buffer, {type: 'buffer'});
+    const sheet_name_list = workbook.SheetNames;
+    const xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
+    console.log(xlData);
+    Students.insertMany(xlData)
+    .then(response => {
+      if(response.length > 0){
+        res.status(200).json('success')
+      }else{
+        res.status(200).json('failed')
+      }
+    })
+    .catch(err => {
+      res.status(500).json('failed')
+    })
+  }catch(err){
+      console.log(err);
+  }
+})
+
+
+app.post('/formapi/getformdata',(req,res) => {
+  Forms.findById(req.body.id)
+  .then(response => {
+    res.status(200).json(response)
+  })
+  .catch(err => {
+    res.status(404).json(err)
+  })
+})
 
 app.listen(8000,() => {
     console.log("Listening on 8000");
