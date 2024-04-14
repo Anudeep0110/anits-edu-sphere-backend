@@ -178,6 +178,24 @@ app.post('/resetpassword',(req,res) => {
     })
 })
 
+app.post('/verify_query',(req,res) => {
+  console.log("verify_query",req.body);
+  const reg_no = req.body.searchText
+  Students.find({regno:reg_no})
+  .then((response) => {
+    console.log("response",response)
+    if(response.length > 0) {
+      res.status(200).json({status:true})
+    }else{
+      res.status(200).json({status:false})
+    }
+  })
+  .catch((err) => {
+    console.log("error",err)
+    res.status(404).json({status:false});
+  })
+})
+
 app.post('/getformnames',(req,res) => {
   const role = req.body.role;
   Forms.find({role:role},{_id:1,formname:1})
