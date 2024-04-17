@@ -395,7 +395,23 @@ app.post('/formapi/getformdata',(req,res) => {
     res.status(404).json(err)
   })
 })
+app.post('/getformnamesappr', async (req, res) => {
+  try {
+    const role = req.body.role;
+    const forms = await Forms.find({ role: role }, { _id: 1, formname: 1 });
+    
+    const responses = [];
+    for (const form of forms) {
+      const exists = await Approvals.exists({ formid: form._id, approval: 'pending' });
+      if(exists){
+      responses.push({ ...form.toObject(), exists });
+    }}
 
+    res.status(200).json(responses);
+  } catch (err) {
+    res.status(404).json({ error: err.message });
+  }
+});
 app.listen(8000,() => {
     console.log("Listening on 8000");
 })
