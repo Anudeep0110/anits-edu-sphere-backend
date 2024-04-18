@@ -344,7 +344,15 @@ app.post('/getstudents',(req,res) => {
     res.status(404).json(err)
   })
 })
-
+app.post('/getfaculty',(req,res) => {
+  Faculties.find({department:req.body.dept})
+  .then(response => {
+    res.status(200).json(response)
+  })
+  .catch(err => {
+    res.status(404).json(err)
+  })
+})
 
 app.post('/getstudentdetails',(req,res) => {
   Students.find({regno:req.body.id})
