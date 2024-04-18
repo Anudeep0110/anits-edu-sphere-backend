@@ -216,38 +216,9 @@ app.post('/verify_query',(req,res) => {
 app.post('/getformnames', async (req, res) => {
   try {
     const role = req.body.role;
-    const studentId = req.body.studentId; 
-    const facultyId = req.body.employee_id; 
-    let forms;
-    if (studentId) {
-      forms = await Forms.find({ role: role }, { _id: 1, formname: 1 });
-      
-      const filteredForms = [];
-      for (const form of forms) {
-        const exists = await formSchemas[form._id].findOne({ studentId: studentId });
-        if (exists) {
-          filteredForms.push(form);
-        }
-      }
-
-      forms = filteredForms;
-    }
-    else if (facultyId) {
-      forms = await Forms.find({ role: role }, { _id: 1, formname: 1 });
-      
-      const filteredForms = [];
-      for (const form of forms) {
-        const exists = await formSchemas[form._id].findOne({ facultyId:facultyId });
-        if (exists) {
-          filteredForms.push(form);
-        }
-      }
-
-      forms = filteredForms;
-    }
-     else {
-     forms = await Forms.find({ role: role }, { _id: 1, formname: 1 });
-    }
+    
+     const forms = await Forms.find({ role: role }, { _id: 1, formname: 1 });
+    
     res.status(200).json(forms);
   } catch (err) {
     res.status(404).json(err);
@@ -263,7 +234,7 @@ app.post('/getformdata', async (req, res) => {
   if (studentId) {
       try {
           // Retrieve form data for the given studentId
-          const formData = await formSchemas[id].find({ studentId: studentId }, { _id: 0 });
+          const formData = await Approvals.find({ 'data.studentId': studentId }, { _id: 0 });
           res.status(200).json(formData);
       } catch (error) {
           res.status(500).json({ error: 'Internal server error' });
@@ -271,7 +242,7 @@ app.post('/getformdata', async (req, res) => {
   }
   else if (employee_id) {
     try {
-        const formData = await formSchemas[id].find({ facultyId: employee_id }, { _id: 0 });
+        const formData = await Approvals.find({ 'data.facultyId': employee_id }, { _id: 0 });
         res.status(200).json(formData);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
@@ -369,16 +340,13 @@ app.post('/getapprovals', async (req, res) => {
   try {
     const { formid, dept } = req.body;
 
-    // Fetch approvals where formid and approval match
-    const approvals = await Approvals.find({ formid, approval: 'pending' });
+   const approvals = await Approvals.find({ formid, approval: 'pending' });
 
-    // Filter approvals based on both formid and branch matching the dept
     const filteredApprovals = approvals.filter(approval => {
       const { data } = approval;
-      // Assuming the branch information is stored in the data field
-      const branch = data.branch; // Adjust this according to your data structure
-      return branch === dept; // Check if the branch matches the provided department
-    });
+      const branch = data.branch; 
+       return branch === dept; 
+      });
 
     res.json(filteredApprovals);
   } catch (error) {
@@ -547,6 +515,47 @@ app.post('/getfacultydetails',(req,res) => {
     res.status(404).json(err)
   })
 })
+app.post('/getformnames1', async (req, res) => {
+  try {
+    const role = req.body.role;
+    const studentId = req.body.studentId; 
+    const facultyId = req.body.employee_id; 
+    let forms;
+    if (studentId) {
+      forms = await Forms.find({ role: role }, { _id: 1, formname: 1 });
+      
+      const filteredForms = [];
+      for (const form of forms) {
+        const exists = await Approvals.exists({ formid: form._id, 'data.studentId' : studentId });
+        if (exists) {
+          filteredForms.push(form);
+        }
+      }
+
+      forms = filteredForms;
+    }
+    else if (facultyId) {
+      forms = await Forms.find({ role: role }, { _id: 1, formname: 1 });
+      
+      const filteredForms = [];
+      for (const form of forms) {
+        const exists = await Approvals.exists({ formid: form._id, 'data.facultyId' : facultyId });
+        if (exists) {
+          filteredForms.push(form);
+        }
+      }
+
+      forms = filteredForms;
+    }
+    res.status(200).json(forms);
+  }
+  catch (err) {
+      res.status(404).json(err);
+    }
+    });
+
+    
+
 app.listen(8000,() => {
     console.log("Listening on 8000");
 })
