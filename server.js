@@ -378,7 +378,6 @@ app.post('/approve', async (req, res) => {
       console.error('Error updating approval:', error);
       res.status(500).json({ error: 'An error occurred while updating the approval' });
   }
-});
 
 
 app.get('/getforms',async (req,res) => {
@@ -390,7 +389,7 @@ app.get('/getforms',async (req,res) => {
     res.status(404).send(err)
   })
 })
-
+});
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });

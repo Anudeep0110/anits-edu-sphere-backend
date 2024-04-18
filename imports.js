@@ -60,7 +60,6 @@ const File_656ec057d60332f945d29f86 = require('./Schemas/faculty/File_656ec057d6
 const File_656ec115d60332f945d29f87 = require('./Schemas/faculty/File_656ec115d60332f945d29f87.js');
 const File_656ec279d60332f945d29f88 = require('./Schemas/faculty/File_656ec279d60332f945d29f88.js');
 const File_656ec404d60332f945d29f89 = require('./Schemas/faculty/File_656ec404d60332f945d29f89.js');  
-const File_656b26cf988da5fb17a661f3 = require('./Schemas/student/File_656b26cf988da5fb17a661f3.js');
 const File_656ec917d60332f945d29f8f = require('./Schemas/student/File_656ec917d60332f945d29f8f.js');
 const File_656ec96ad60332f945d29f90 = require('./Schemas/student/File_656ec96ad60332f945d29f90.js');
 const File_656ec9dad60332f945d29f91 = require('./Schemas/student/File_656ec9dad60332f945d29f91.js');
@@ -145,7 +144,6 @@ const formSchemas = {
 "656ec115d60332f945d29f87": File_656ec115d60332f945d29f87,
 "656ec279d60332f945d29f88": File_656ec279d60332f945d29f88,
 "656ec404d60332f945d29f89": File_656ec404d60332f945d29f89,
-"656b26cf988da5fb17a661f3": File_656b26cf988da5fb17a661f3,
 "656ec917d60332f945d29f8f": File_656ec917d60332f945d29f8f,
 "656ec96ad60332f945d29f90": File_656ec96ad60332f945d29f90,
 "656ec9dad60332f945d29f91": File_656ec9dad60332f945d29f91,
@@ -166,15 +164,13 @@ const formSchemas = {
     "File_656ec115d60332f945d29f87": File_656ec115d60332f945d29f87,
     "File_656ec279d60332f945d29f88": File_656ec279d60332f945d29f88,
     "File_656ec404d60332f945d29f89": File_656ec404d60332f945d29f89,
-    "File_656b26cf988da5fb17a661f3": File_656b26cf988da5fb17a661f3,
     "File_656ec917d60332f945d29f8f": File_656ec917d60332f945d29f8f,
     "File_656ec96ad60332f945d29f90": File_656ec96ad60332f945d29f90,
     "File_656ec9dad60332f945d29f91": File_656ec9dad60332f945d29f91
   };
 
   const studentSchema = {
-    "File_656b26cf988da5fb17a661f3": File_656b26cf988da5fb17a661f3,
-    "File_656ec917d60332f945d29f8f": File_656ec917d60332f945d29f8f,
+   "File_656ec917d60332f945d29f8f": File_656ec917d60332f945d29f8f,
     "File_656ec96ad60332f945d29f90": File_656ec96ad60332f945d29f90,
     "File_656ec9dad60332f945d29f91": File_656ec9dad60332f945d29f91
   };
