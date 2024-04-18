@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const Form = new mongoose.Schema({
     facultyId : String,
     facultyName : String,
-    department : String,
+    branch : String,
     awardName : String,
     awardingBody : String,
     achievementDate : String,

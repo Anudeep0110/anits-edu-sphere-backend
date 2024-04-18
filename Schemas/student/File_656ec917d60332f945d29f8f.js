@@ -4,12 +4,14 @@ const mongoose = require('mongoose')
 const Form = new mongoose.Schema({
     studentId : String,
     studentName : String,
-    yearAndBranch : String,
     eventName : String,
     eventType : String,
     organizationName : String,
     eventDates : String,
     prizesWon : String,
+    year: String,
+    branch: String,
+    section: String
 });
 
 module.exports = mongoose.model('file_656ec917d60332f945d29f8f',Form)
