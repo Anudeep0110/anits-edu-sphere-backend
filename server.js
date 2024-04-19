@@ -243,11 +243,10 @@ app.post('/getformnames', async (req, res) => {
 app.post('/getformdata', async (req, res) => {
   const id = req.body.id;
   const studentId = req.body.studentId;
-  const employee_id = req.body.employee_id
+  const employee_id = req.body.employee_id;
+  const dept = req.body.dept;
   if (studentId) {
       try {
-          // Retrieve form data for the given studentId
-          
           const formData = await formSchemas[id].find({studentId: studentId}, { _id: 0 });
           res.status(200).json(formData);
       } catch (error) {
@@ -256,12 +255,19 @@ app.post('/getformdata', async (req, res) => {
   }
   else if (employee_id) {
     try {
-      
         const formData = await formSchemas[id].find({facultyId : employee_id }, { _id: 0 });
         res.status(200).json(formData);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
+}
+else if (dept) {
+  try {
+      const formData = await formSchemas[id].find({branch : dept }, { _id: 0 });
+      res.status(200).json(formData);
+  } catch (error) {
+      res.status(500).json({ error: 'Internal server error' });
+  }
 }
    else {
       try {
