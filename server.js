@@ -205,14 +205,18 @@ app.post('/verify_query', (req, res) => {
       if (response && response.length > 0) {
         res.status(200).json({ status: true, role: 'student' });
       } else {
-        return Faculties.find({ employee_id: reg_no });
-      }
-    })
-    .then((facultiesResponse) => {
-      if (facultiesResponse && facultiesResponse.length > 0) {
-        res.status(200).json({ status : true, role: 'faculty'});
-      }else{
-        res.status(200).json({ status : true, role: 'no_role'});
+        Faculties.find({ employee_id: reg_no })
+        .then((facultiesResponse) => {
+          if (facultiesResponse && facultiesResponse.length > 0) {
+            res.status(200).json({ status : true, role: 'faculty'});
+          }else{
+            res.status(200).json({ status : true, role: 'no_role'});
+          }
+        })
+        .catch((err) => {
+          console.log("error", err);
+          res.status(404).json({ status: false, role: 'no_role'});
+        });
       }
     })
     .catch((err) => {
@@ -370,6 +374,7 @@ app.post('/approve', async (req, res) => {
 
   try {
       const updatedApproval = await Approvals.findByIdAndUpdate(id, { approval: status }, { new: true });
+      console.log("Approval updated",updatedApproval);
       if (updatedApproval) {
           if (status === 'accepted') {
             const form = await formSchemas[updatedApproval.formid].insertMany(updatedApproval.data )
@@ -387,7 +392,7 @@ app.post('/approve', async (req, res) => {
       console.error('Error updating approval:', error);
       res.status(500).json({ error: 'An error occurred while updating the approval' });
   }
-
+});
 
 app.get('/getforms',async (req,res) => {
   await Forms.find({})
@@ -398,7 +403,6 @@ app.get('/getforms',async (req,res) => {
     res.status(404).send(err)
   })
 })
-});
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
