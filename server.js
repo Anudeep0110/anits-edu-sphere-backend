@@ -4,6 +4,10 @@ const bodyparser = require('body-parser')
 const nodemailer = require('nodemailer')
 const multer = require('multer')
 const XLSX = require('xlsx')
+const getSchema = require('./getSchema')
+
+
+
 
 
 const app = express();
@@ -42,7 +46,7 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-app.post('/login',(req,res) => {
+app.post('/login',async (req,res) => {
     const uname = req.body.uname
     const pwd = req.body.pwd
     Login.find({username:uname,password:pwd})
@@ -211,8 +215,8 @@ app.post('/getformnames',(req,res) => {
 app.post('/getformdata',(req,res) => {
   const id = req.body.id;
   console.log(id);
-  console.log(formSchemas[id]);
-  formSchemas[id].find({},{_id:0})
+  const Model = require(`./Schemas/File_${id}`)
+  Model.find({},{_id:0})
   .then(response => {
     res.status(200).json(response)
   })
@@ -234,6 +238,7 @@ app.post('/getcolnames',(req,res) => {
 })
 app.post('/sendtoapprovals', async(req, res) => {
   const { formid, data } = req.body;
+  console.log(data);
   try {
     const form = await Forms.findById(formid);
     if (!form) {
@@ -244,7 +249,10 @@ app.post('/sendtoapprovals', async(req, res) => {
         res.status(200).json({ success: true, message: 'Data inserted successfully', data: insertedData });
     } 
     else {
-      formSchemas[formid].insertMany(data )
+      const Model = require(`./Schemas/File_${formid}`)
+      console.log(Model);
+      console.log(formid);
+      Model.insertMany(data)
             }
 } catch (error) {
   console.error('Error inserting data into approvals collection:', error);
@@ -257,7 +265,8 @@ app.post('/sendtodb',(req,res) => {
   console.log(req.body)
   const data = req.body.data
   const id = req.body.formid
-  formSchemas[id].insertMany(data)
+  const Model = require(`./Schemas/File_${id}`)
+  Model.insertMany(data)
   .then(response => {
     console.log(response)
   })
@@ -307,9 +316,9 @@ app.post('/approve', async (req, res) => {
       const updatedApproval = await Approvals.findByIdAndUpdate(id, { approval: status }, { new: true });
       if (updatedApproval) {
           if (status === 'accepted') {
-            
+            const Model = require(`./Schemas/File_${updatedApproval.formid}`)
               // Find the respective form by ID and update the data field with approvals.data
-              const form = await formSchemas[updatedApproval.formid].insertMany(updatedApproval.data )
+              const form = await Model.insertMany(updatedApproval.data )
               console.log(form)
               console.log(updatedApproval)
               res.status(200).json({ updatedApproval, form });
@@ -394,6 +403,32 @@ app.post('/formapi/getformdata',(req,res) => {
   .catch(err => {
     res.status(404).json(err)
   })
+})
+
+
+app.post('/createform',async (req,res) => {
+  const formdata = req.body
+  await Forms.insertMany(formdata)
+  .then(response => {
+    const formId = response[0]._id;
+    const fs = require('fs')
+    const filecontent = `
+    const mongoose = require('mongoose')
+    const Form = mongoose.model('file_${formId}',new mongoose.Schema({
+        ${formdata.columns.map((col) => {
+          return `${col.name}:{type:String,required:true}\n`
+        })}
+    }))
+    module.exports = Form
+    `
+    fs.writeFileSync(`./Schemas/File_${formId}.js`,filecontent)
+    res.status(200).json(response)
+  })
+  .catch(err => {
+    res.status(404).json(err)
+  })
+  console.log(formdata);
+
 })
 
 app.listen(8000,() => {
