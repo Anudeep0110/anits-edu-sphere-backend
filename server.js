@@ -247,7 +247,8 @@ app.post('/getformdata', async (req, res) => {
   if (studentId) {
       try {
           // Retrieve form data for the given studentId
-          const formData = await Approvals.find({ 'data.studentId': studentId }, { _id: 0 });
+          
+          const formData = await formSchemas[id].find({studentId: studentId}, { _id: 0 });
           res.status(200).json(formData);
       } catch (error) {
           res.status(500).json({ error: 'Internal server error' });
@@ -255,7 +256,8 @@ app.post('/getformdata', async (req, res) => {
   }
   else if (employee_id) {
     try {
-        const formData = await Approvals.find({ 'data.facultyId': employee_id }, { _id: 0 });
+      
+        const formData = await formSchemas[id].find({facultyId : employee_id }, { _id: 0 });
         res.status(200).json(formData);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
@@ -369,25 +371,83 @@ app.post('/getapprovals', async (req, res) => {
 });
 
 
+
 app.post('/approve', async (req, res) => {
   const { id, status } = req.body;
 
   try {
       const updatedApproval = await Approvals.findByIdAndUpdate(id, { approval: status }, { new: true });
-      console.log("Approval updated",updatedApproval);
-      if (updatedApproval) {
-          if (status === 'accepted') {
-            const form = await formSchemas[updatedApproval.formid].insertMany(updatedApproval.data )
-              console.log(form)
-              console.log(updatedApproval)
-              res.status(200).json({ updatedApproval, form });
-          } else {
-            console.log(updatedApproval)
-              res.status(200).json(updatedApproval);
-          }
-      } else {
+
+      if (!updatedApproval) {
           return res.status(404).json({ error: 'Approval not found' });
       }
+
+      const { studentId, facultyId} = updatedApproval.data;
+      const {formid}=updatedApproval;
+      let form;
+
+      if (status === 'accepted') {
+          const formSchema = formSchemas[formid];
+          if (!formSchema) {
+              return res.status(404).json({ error: 'Form schema not found' });
+          }
+
+          form = await formSchema.create(updatedApproval.data);
+      }
+      const formDetails = await Forms.findById(formid);
+
+      if (!formDetails) {
+          return res.status(404).json({ error: 'Form not found' });
+      }
+
+      let recipientEmail;
+      let recipientRole;
+      let recipientName;
+      if (studentId) {
+          const studentDetails = await Students.findOne({ regno: studentId });
+          if (!studentDetails) {
+              return res.status(404).json({ error: 'Student not found' });
+          }
+          recipientEmail = studentDetails.email;
+          recipientRole = 'student';
+           recipientName = `${studentDetails.first_name} ${studentDetails.last_name}`;} else if (facultyId) {
+          const facultyDetails = await Faculties.findOne({ employee_id: facultyId });
+          if (!facultyDetails) {
+              return res.status(404).json({ error: 'Faculty not found' });
+          }
+          recipientEmail = facultyDetails.email;
+          recipientRole = 'faculty';
+          recipientName = `${facultyDetails.first_name} ${facultyDetails.last_name}`;
+      }
+
+      const mailOptions = {
+          from: 'anitsedusphere2000@gmail.com',
+          to: recipientEmail,
+          subject: 'Approval Notification',
+          html: `
+          <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333;">Hello ${recipientName},</p>
+          <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333;">Your data from ${formDetails.formname} has been ${status}.</p>
+          <ul style="font-family: Arial, sans-serif; font-size: 16px; color: #333; list-style-type: none; padding: 0;">
+            ${Object.entries(updatedApproval.data).map(([key, value]) => `
+              <li style="margin-bottom: 5px;">${key}: ${value}</li>
+            `).join('')}
+          </ul>
+          <p style="font-family: Arial, sans-serif; font-size: 16px; color: #333;">Best regards,<br>Anits Edusphere</p>
+           `
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              console.error('Error sending email:', error);
+          } else {
+              console.log('Email sent:', info.response);
+          }
+      });
+
+      res.status(200).json({ updatedApproval, form });
+      
+      
+
   } catch (error) {
       console.error('Error updating approval:', error);
       res.status(500).json({ error: 'An error occurred while updating the approval' });
