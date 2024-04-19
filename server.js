@@ -195,23 +195,32 @@ app.post('/resetpassword',(req,res) => {
     })
 })
 
-app.post('/verify_query',(req,res) => {
-  console.log("verify_query",req.body);
-  const reg_no = req.body.searchText
-  Students.find({regno:reg_no})
-  .then((response) => {
-    console.log("response",response)
-    if(response.length > 0) {
-      res.status(200).json({status:true})
-    }else{
-      res.status(200).json({status:false})
-    }
-  })
-  .catch((err) => {
-    console.log("error",err)
-    res.status(404).json({status:false});
-  })
-})
+app.post('/verify_query', (req, res) => {
+  console.log("verify_query", req.body);
+  const reg_no = req.body.searchText;
+  
+  // Searching in the Students collection
+  Students.find({ regno: reg_no })
+    .then((response) => {
+      if (response && response.length > 0) {
+        res.status(200).json({ status: true, role: 'student' });
+      } else {
+        return Faculties.find({ employee_id: reg_no });
+      }
+    })
+    .then((facultiesResponse) => {
+      if (facultiesResponse && facultiesResponse.length > 0) {
+        res.status(200).json({ status : true, role: 'faculty'});
+      }else{
+        res.status(200).json({ status : true, role: 'no_role'});
+      }
+    })
+    .catch((err) => {
+      console.log("error", err);
+      res.status(404).json({ status: false, role: 'no_role'});
+    });
+});
+
 
 app.post('/getformnames', async (req, res) => {
   try {
