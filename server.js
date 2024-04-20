@@ -20,6 +20,7 @@ const connexion = require('./connexion')
 const Login  = require('./Schemas/Login')
 const Forms = require('./Schemas/Forms')
 const Students = require('./Schemas/Student')
+const Faculties = require('./Schemas/Faculty')
 const Approvals = require('./Schemas/approvals')
 
 // MongoDB Schema Names
@@ -76,16 +77,32 @@ app.post('/getforms',async (req,res) => {
   })
 })
 
-app.post('/getform',async (req,res) => {
-  const id = req.body.id;
-  await Forms.findById(id)
-  .then(response => {
-    res.status(200).send(response)
-  })
-  .catch(err => {
-    res.status(404).send(err)
-  })
-})
+app.post('/getform', async (req, res) => {
+  try {
+    const id = req.body.id;
+    const form = await Forms.findById(id);
+   
+    if (!form) {
+      return res.status(404).send("Form not found");
+    }
+
+    let response = form.toObject();
+
+    if (form.role === 'student') {
+      response.columns = response.columns.filter(column => !['studentName', 'branch', 'section'].includes(column.name));
+    }
+    else if (form.role === 'faculty') {
+      response.columns = response.columns.filter(column => !['facultyName', 'branch'].includes(column.name));
+    }
+
+
+    res.status(200).json(response);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+
 
 app.post('/forgotpassword',(req,res) => {
     Login.find({username:req.body.uname})
@@ -182,48 +199,83 @@ app.post('/resetpassword',(req,res) => {
     })
 })
 
-app.post('/verify_query',(req,res) => {
-  console.log("verify_query",req.body);
-  const reg_no = req.body.searchText
-  Students.find({regno:reg_no})
-  .then((response) => {
-    console.log("response",response)
-    if(response.length > 0) {
-      res.status(200).json({status:true})
-    }else{
-      res.status(200).json({status:false})
-    }
-  })
-  .catch((err) => {
-    console.log("error",err)
-    res.status(404).json({status:false});
-  })
-})
+app.post('/verify_query', (req, res) => {
+  console.log("verify_query", req.body);
+  const reg_no = req.body.searchText;
+  
+  // Searching in the Students collection
+  Students.find({ regno: reg_no })
+    .then((response) => {
+      if (response && response.length > 0) {
+        res.status(200).json({ status: true, role: 'student' });
+      } else {
+        Faculties.find({ employee_id: reg_no })
+        .then((facultiesResponse) => {
+          if (facultiesResponse && facultiesResponse.length > 0) {
+            res.status(200).json({ status : true, role: 'faculty'});
+          }else{
+            res.status(200).json({ status : true, role: 'no_role'});
+          }
+        })
+        .catch((err) => {
+          console.log("error", err);
+          res.status(404).json({ status: false, role: 'no_role'});
+        });
+      }
+    })
+    .catch((err) => {
+      console.log("error", err);
+      res.status(404).json({ status: false, role: 'no_role'});
+    });
+});
 
-app.post('/getformnames',(req,res) => {
-  const role = req.body.role;
-  Forms.find({role:role},{_id:1,formname:1})
-  .then(response => {
-    res.status(200).json(response)
-  })
-  .catch(err => {
-    res.status(404).json(err)
-  })
-})
+
+app.post('/getformnames', async (req, res) => {
+  try {
+    const role = req.body.role;
+    
+     const forms = await Forms.find({ role: role }, { _id: 1, formname: 1 });
+    
+    res.status(200).json(forms);
+  } catch (err) {
+    res.status(404).json(err);
+  }
+});
 
 
-app.post('/getformdata',(req,res) => {
+
+app.post('/getformdata', async (req, res) => {
   const id = req.body.id;
-  console.log(id);
-  const Model = require(`./Schemas/File_${id}`)
-  Model.find({},{_id:0})
-  .then(response => {
-    res.status(200).json(response)
-  })
-  .catch(err => {
-    res.status(404).json(err)
-  })
-})
+  const studentId = req.body.studentId;
+  const employee_id = req.body.employee_id
+  if (studentId) {
+      try {
+          // Retrieve form data for the given studentId
+          const formData = await Approvals.find({ 'data.studentId': studentId }, { _id: 0 });
+          res.status(200).json(formData);
+      } catch (error) {
+          res.status(500).json({ error: 'Internal server error' });
+      }
+  }
+  else if (employee_id) {
+    try {
+        const formData = await Approvals.find({ 'data.facultyId': employee_id }, { _id: 0 });
+        res.status(200).json(formData);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+   else {
+      try {
+          // Retrieve all form data if studentId is not provided
+          const formData = await formSchemas[id].find({}, { _id: 0 });
+          res.status(200).json(formData);
+      } catch (error) {
+          res.status(500).json({ error: 'Internal server error' });
+      }
+  }
+});
+
 
 
 app.post('/getcolnames',(req,res) => {
@@ -285,7 +337,15 @@ app.post('/getstudents',(req,res) => {
     res.status(404).json(err)
   })
 })
-
+app.post('/getfaculty',(req,res) => {
+  Faculties.find({department:req.body.dept})
+  .then(response => {
+    res.status(200).json(response)
+  })
+  .catch(err => {
+    res.status(404).json(err)
+  })
+})
 
 app.post('/getstudentdetails',(req,res) => {
   Students.find({regno:req.body.id})
@@ -297,28 +357,36 @@ app.post('/getstudentdetails',(req,res) => {
     res.status(404).json(err)
   })
 })
+
 app.post('/getapprovals', async (req, res) => {
   try {
-      const { formid } = req.body;
-      const approvals = await Approvals.find({ formid, approval: 'pending' }, { data: 1, _id: 1 });
-      res.json(approvals);
+    const { formid, dept } = req.body;
+
+   const approvals = await Approvals.find({ formid, approval: 'pending' });
+
+    const filteredApprovals = approvals.filter(approval => {
+      const { data } = approval;
+      const branch = data.branch; 
+       return branch === dept; 
+      });
+
+    res.json(filteredApprovals);
   } catch (error) {
-      console.error('Error fetching approvals:', error);
-      res.status(500).json({ error: 'Internal server error' });
+    console.error('Error fetching approvals:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 app.post('/approve', async (req, res) => {
   const { id, status } = req.body;
 
   try {
-      // Update the approval status in the database
       const updatedApproval = await Approvals.findByIdAndUpdate(id, { approval: status }, { new: true });
+      console.log("Approval updated",updatedApproval);
       if (updatedApproval) {
           if (status === 'accepted') {
-            const Model = require(`./Schemas/File_${updatedApproval.formid}`)
-              // Find the respective form by ID and update the data field with approvals.data
-              const form = await Model.insertMany(updatedApproval.data )
+            const form = await formSchemas[updatedApproval.formid].insertMany(updatedApproval.data )
               console.log(form)
               console.log(updatedApproval)
               res.status(200).json({ updatedApproval, form });
@@ -335,7 +403,6 @@ app.post('/approve', async (req, res) => {
   }
 });
 
-
 app.get('/getforms',async (req,res) => {
   await Forms.find({})
   .then(response => {
@@ -345,7 +412,6 @@ app.get('/getforms',async (req,res) => {
     res.status(404).send(err)
   })
 })
-
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -404,6 +470,112 @@ app.post('/formapi/getformdata',(req,res) => {
     res.status(404).json(err)
   })
 })
+app.post('/getformnamesappr', async (req, res) => {
+  try {
+    const role = req.body.role;
+    const forms = await Forms.find({ role: role }, { _id: 1, formname: 1 });
+    
+    const responses = [];
+    for (const form of forms) {
+      const exists = await Approvals.exists({ formid: form._id, approval: 'pending' });
+      if(exists){
+      responses.push({ ...form.toObject(), exists });
+    }}
+
+    res.status(200).json(responses);
+  } catch (err) {
+    res.status(404).json({ error: err.message });
+  }
+});
+
+app.post('/getAdditionalFields', async (req, res) => {
+  const emp=req.body.employee_id;
+    console.log(emp);
+  try {
+    
+    if (req.body.studentId) {
+      const students = await Student.find(
+        { regno: req.body.studentId },
+        { _id: 0, studentName: { $concat: ["$first_name", " ", "$last_name"] }, studentId: req.body.studentId, branch: "$department", section: 1 }
+      );
+
+      if (students.length === 0) {
+        return res.status(404).json({ message: 'Student not found' });
+      }
+
+      const studentData = students[0];
+      return res.json(studentData);
+    } else if (req.body.employee_id) {
+      const faculties = await Faculties.find(
+        { employee_id: req.body.employee_id },
+        { _id: 0, facultyName: { $concat: ["$first_name", " ", "$last_name"] }, facultyId: req.body.employee_id, branch:"$department"}
+      );
+
+      if (faculties.length === 0) {
+        return res.status(404).json({ message: 'Faculty not found' });
+      }
+
+      const facultyData = faculties[0];
+      return res.json(facultyData);
+    } else {
+      return res.status(400).json({ message: 'Invalid request: studentId or facultyId must be provided' });
+    }
+  } catch (error) {
+    console.error('Error fetching additional fields:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.post('/getfacultydetails',(req,res) => {
+  Faculties.find({employee_id:req.body.id})
+  .then(response => {
+    console.log(response);
+    res.status(200).json(response)
+  })
+  .catch(err => {
+    res.status(404).json(err)
+  })
+})
+app.post('/getformnames1', async (req, res) => {
+  try {
+    const role = req.body.role;
+    const studentId = req.body.studentId; 
+    const facultyId = req.body.employee_id; 
+    let forms;
+    if (studentId) {
+      forms = await Forms.find({ role: role }, { _id: 1, formname: 1 });
+      
+      const filteredForms = [];
+      for (const form of forms) {
+        const exists = await Approvals.exists({ formid: form._id, 'data.studentId' : studentId });
+        if (exists) {
+          filteredForms.push(form);
+        }
+      }
+
+      forms = filteredForms;
+    }
+    else if (facultyId) {
+      forms = await Forms.find({ role: role }, { _id: 1, formname: 1 });
+      
+      const filteredForms = [];
+      for (const form of forms) {
+        const exists = await Approvals.exists({ formid: form._id, 'data.facultyId' : facultyId });
+        if (exists) {
+          filteredForms.push(form);
+        }
+      }
+
+      forms = filteredForms;
+    }
+    res.status(200).json(forms);
+  }
+  catch (err) {
+      res.status(404).json(err);
+    }
+    });
+
+    
 
 
 app.post('/createform',async (req,res) => {
