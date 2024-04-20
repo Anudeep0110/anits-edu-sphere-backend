@@ -41,6 +41,9 @@ const transporter = nodemailer.createTransport({
         user: 'anitsedusphere2000@gmail.com',
         pass: 'bmlsiuptkwcbfcis',
     },
+    tls: {
+      rejectUnauthorized: false
+  }
 });
 
 app.post('/login',(req,res) => {
