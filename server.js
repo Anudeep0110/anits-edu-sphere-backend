@@ -316,7 +316,7 @@ app.post('/sendtoapprovals', async(req, res) => {
       console.log(Model);
       console.log(formid);
       Model.insertMany(data)
-            }
+    }
 } catch (error) {
   console.error('Error inserting data into approvals collection:', error);
   res.status(500).json({ success: false, message: 'Failed to insert data', error: error.message });
@@ -655,11 +655,17 @@ app.post('/createform',async (req,res) => {
     const fs = require('fs')
     const filecontent = `
     const mongoose = require('mongoose')
-    const Form = mongoose.model('file_${formId}',new mongoose.Schema({
-        ${formdata.columns.map((col) => {
-          return `${col.name}:{type:String,required:true}\n`
-        })}
-    }))
+    let Form;
+    if(mongoose.models.file_${formId}){
+        Form = mongoose.model('file_${formId}')
+    }else{
+        Form = mongoose.model('file_${formId}',new mongoose.Schema({
+            ${formdata.columns.map((col) => {
+              return `${col.name}:{type:String,required:true}\n`
+            })}
+        }))
+    }
+    
     module.exports = Form
     `
     fs.writeFileSync(`./Schemas/File_${formId}.js`,filecontent)
