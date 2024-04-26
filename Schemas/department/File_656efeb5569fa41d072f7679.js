@@ -1,6 +1,10 @@
 //Form Name: Industrial visits organized
 const mongoose = require('mongoose')
+let File_656efeb5569fa41d072f7679;
 
+if (mongoose.models.file_656efeb5569fa41d072f7679) {
+    File_656efeb5569fa41d072f7679 = mongoose.model('file_656efeb5569fa41d072f7679')
+} else {
 const Form = new mongoose.Schema({
     dept_id:String,
     academicYear:String,
@@ -17,6 +21,6 @@ const Form = new mongoose.Schema({
     activitiesConducted:String,
     keyLearnings:String,
     feedback:String,
-});
-
-module.exports = mongoose.model('file_656efeb5569fa41d072f7679',Form)
+})
+File_656efeb5569fa41d072f7679 = mongoose.model('file_656efeb5569fa41d072f7679',Form)
+module.exports = File_656efeb5569fa41d072f7679

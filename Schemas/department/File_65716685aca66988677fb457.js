@@ -1,5 +1,10 @@
 const mongoose = require('mongoose')
 
+let File_65716685aca66988677fb457;
+
+if (mongoose.models.file_65716685aca66988677fb457) {
+    File_65716685aca66988677fb457 = mongoose.model('file_65716685aca66988677fb457')
+} else {
 const Form = new mongoose.Schema({
     dept_id:String,
     studentId:String,
@@ -13,5 +18,6 @@ const Form = new mongoose.Schema({
     teamSize:String,
     currentStatus:String
 })
-
-module.exports = mongoose.model('file_65716685aca66988677fb457',Form)
+File_65716685aca66988677fb457 = mongoose.model('file_65716685aca66988677fb457',Form)
+}
+module.exports = File_65716685aca66988677fb457

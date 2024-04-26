@@ -1,6 +1,11 @@
 //Form name:Industry-collaborated laboratories established 
 const mongoose = require('mongoose')
 
+let File_65709130884edb3d208dab7f;
+
+if (mongoose.models.file_65709130884edb3d208dab7f) {
+    File_65709130884edb3d208dab7f = mongoose.model('file_65709130884edb3d208dab7f')
+} else {
 const Form = new mongoose.Schema({
     dept_id:String,
     laboratoryName:String,
@@ -14,6 +19,7 @@ const Form = new mongoose.Schema({
     contactInformation:String,
     industryPartnerName:String,
     industrySector:String,
-});
-
-module.exports = mongoose.model('file_65709130884edb3d208dab7f',Form)
+})
+File_65709130884edb3d208dab7f = mongoose.model('file_65709130884edb3d208dab7f',Form)
+}
+module.exports = File_65709130884edb3d208dab7f

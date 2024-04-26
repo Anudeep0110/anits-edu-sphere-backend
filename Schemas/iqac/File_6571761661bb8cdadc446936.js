@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
+let File_6571761661bb8cdadc446936;
 
+if (mongoose.models.file_6571761661bb8cdadc446936) {
+    File_6571761661bb8cdadc446936 = mongoose.model('file_6571761661bb8cdadc446936')
+} else {
 const Form = new mongoose.Schema({
     iqac_id:String,
     initiativeTitle:String,
@@ -12,6 +16,7 @@ const Form = new mongoose.Schema({
     evidenceOfImplementation:String,
     followUpActionTaken:String
 
-});
-
-module.exports = mongoose.model('file_6571761661bb8cdadc446936',Form) 
+})
+File_6571761661bb8cdadc446936 = mongoose.model('file_6571761661bb8cdadc446936',Form) 
+}
+module.exports = File_6571761661bb8cdadc446936

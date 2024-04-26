@@ -5,7 +5,12 @@
 //The space at the end makes the difference 
 
 const mongoose = require('mongoose')
+let File_657090da884edb3d208dab7e;
 
+
+if (mongoose.models.file_657090da884edb3d208dab7e) {
+    File_657090da884edb3d208dab7e = mongoose.model('file_657090da884edb3d208dab7e')
+} else {
 const Form = new mongoose.Schema({
     dept_id:String,
     workshopTitle:String,
@@ -23,6 +28,7 @@ const Form = new mongoose.Schema({
     numberOfParticipants:String, 
     workshopRegistration:String,
     workshopFeedback:String,
-});
-
-module.exports = mongoose.model('file_657090da884edb3d208dab7e',Form)
+})
+File_657090da884edb3d208dab7e = mongoose.model('file_657090da884edb3d208dab7e',Form)
+}
+module.exports = File_657090da884edb3d208dab7e

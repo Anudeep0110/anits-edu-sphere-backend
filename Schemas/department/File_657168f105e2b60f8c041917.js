@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')    // Extension programs conducted
-
+let File_657168f105e2b60f8c041917;
+if (mongoose.models.file_657168f105e2b60f8c041917) {
+    File_657168f105e2b60f8c041917 = mongoose.model('file_657168f105e2b60f8c041917')
+} else {
 const Form = new mongoose.Schema({
     dept_id:String,
     programTitle:String,
@@ -16,5 +19,6 @@ const Form = new mongoose.Schema({
     registrationLinkContactInfo:String, 
     programBenefitsOutcomes:String
 })
-
-module.exports = mongoose.model('file_657168f105e2b60f8c041917',Form)
+File_657168f105e2b60f8c041917 = mongoose.model('file_657168f105e2b60f8c041917',Form) 
+}
+module.exports = File_657168f105e2b60f8c041917 

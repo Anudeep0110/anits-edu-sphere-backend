@@ -1,4 +1,9 @@
 const mongoose = require('mongoose')
+let File_656ec9dad60332f945d29f91;
+
+if (mongoose.models.file_656ec9dad60332f945d29f91) {
+   File_656ec9dad60332f945d29f91  = mongoose.model('file_656ec9dad60332f945d29f91')
+} else {
 
 //formname: Collaboration Linkages (Mo Us) with Higher Educational Institutions for promoting innovation and startup
 const Form = new mongoose.Schema({
@@ -14,6 +19,7 @@ const Form = new mongoose.Schema({
     year: String,
     branch: String,
     section: String
-});
-
-module.exports = mongoose.model('file_656ec9dad60332f945d29f91',Form)
+})
+File_656ec9dad60332f945d29f91 = mongoose.model('file_656ec9dad60332f945d29f91',Form)
+}
+module.exports = File_656ec9dad60332f945d29f91

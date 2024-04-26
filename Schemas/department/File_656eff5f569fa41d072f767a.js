@@ -1,7 +1,12 @@
 const mongoose = require('mongoose')
 
-//Form name: Value added courses/ Certificate courses organized
+let File_656eff5f569fa41d072f767a;
 
+if (mongoose.models.file_656eff5f569fa41d072f767a) {
+    File_656eff5f569fa41d072f767a = mongoose.model('file_656eff5f569fa41d072f767a')
+} else {
+
+//Form name: Value added courses/ Certificate courses organized
 const Form = new mongoose.Schema({
     dept_id:String,
     academicYear:String,
@@ -11,6 +16,7 @@ const Form = new mongoose.Schema({
     numberOfParticipants:String,
     hoursOfTraining:String,
     resourcePerson:String,
-});
-
-module.exports = mongoose.model('file_656eff5f569fa41d072f767a',Form)
+})
+File_656eff5f569fa41d072f767a = mongoose.model('file_656eff5f569fa41d072f767a',Form)
+}
+module.exports = File_656eff5f569fa41d072f767a

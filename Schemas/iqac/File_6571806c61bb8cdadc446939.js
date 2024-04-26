@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
+let File_6571806c61bb8cdadc446939;
 
+if (mongoose.models.file_6571806c61bb8cdadc446939) {
+    File_6571806c61bb8cdadc446939 = mongoose.model('file_6571806c61bb8cdadc446939')
+} else {
 const Form = new mongoose.Schema({
     iqac_id:String,
     conferenceTitle:String,
@@ -13,9 +17,8 @@ const Form = new mongoose.Schema({
     outcomesAndRecommendations:String,
     supportingDocumentsn:String,
     remarksAndNotes:String
-    
 
-
-});
-
-module.exports = mongoose.model('file_6571806c61bb8cdadc446939',Form) 
+})
+File_6571806c61bb8cdadc446939 = mongoose.model('file_6571806c61bb8cdadc446939',Form) 
+}
+module.exports = File_6571806c61bb8cdadc446939

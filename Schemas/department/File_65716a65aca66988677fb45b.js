@@ -1,5 +1,10 @@
 const mongoose = require('mongoose')
 
+let File_65716a65aca66988677fb45b;
+
+if (mongoose.models.file_65716a65aca66988677fb45b) {
+    File_65716a65aca66988677fb45b = mongoose.model('file_65716a65aca66988677fb45b')
+} else {
 const Form = new mongoose.Schema({
     dept_id:String,
     activityName:String,
@@ -13,5 +18,6 @@ const Form = new mongoose.Schema({
     outcomesEvaluation:String,
     additionalInformation:String
 })
-
-module.exports = mongoose.model('file_65716a65aca66988677fb45b',Form)
+File_65716a65aca66988677fb45b = mongoose.model('file_65716a65aca66988677fb45b',Form)
+}
+module.exports = File_65716a65aca66988677fb45b

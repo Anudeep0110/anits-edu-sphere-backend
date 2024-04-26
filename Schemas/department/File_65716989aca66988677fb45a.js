@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
+let File_65716989aca66988677fb45a;
 
+if (mongoose.models.file_65716989aca66988677fb45a) {
+    File_65716989aca66988677fb45a = mongoose.model('file_65716989aca66988677fb45a')
+} else {
 const Form = new mongoose.Schema({
     dept_id:String,
     activityName:String,
@@ -12,5 +16,6 @@ const Form = new mongoose.Schema({
     outcomesEvaluation:String,
     resourceMaterials:String
 })
-
-module.exports = mongoose.model('file_65716989aca66988677fb45a',Form)
+File_65716989aca66988677fb45a = mongoose.model('file_65716989aca66988677fb45a',Form)
+}
+module.exports = File_65716989aca66988677fb45a

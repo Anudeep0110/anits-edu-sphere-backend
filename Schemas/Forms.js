@@ -1,10 +1,15 @@
 const mongoose = require('mongoose')
+let  Forms;
 
+if (mongoose.models.forms) {
+    Forms = mongoose.model('forms')
+} else {
 const Form = new mongoose.Schema({
     formname:String,
     columns:Object,
     desc:String,
     role:String
 })
-
-module.exports = mongoose.model('forms',Form)
+ Forms = mongoose.model('forms',Form)
+}
+module.exports = Forms

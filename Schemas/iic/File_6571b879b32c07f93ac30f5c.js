@@ -1,4 +1,9 @@
 const mongoose = require('mongoose')
+let File_6571b879b32c07f93ac30f5c;
+
+if (mongoose.models.file_6571b879b32c07f93ac30f5c) {
+    File_6571b879b32c07f93ac30f5c = mongoose.model('file_6571b879b32c07f93ac30f5c')
+} else {
 //formname:Inter/Intra Institutional Idea Competition/Challenge/Hackathon
 const Form = new mongoose.Schema({
     iic_id:String,
@@ -12,6 +17,7 @@ const Form = new mongoose.Schema({
     WiningIdea:String,
     WinnerNames:String,
     Description:String,
-});
-
-module.exports = mongoose.model('file_6571b879b32c07f93ac30f5c',Form)
+})
+File_6571b879b32c07f93ac30f5c = mongoose.model('file_6571b879b32c07f93ac30f5c',Form)
+}
+module.exports = File_6571b879b32c07f93ac30f5c

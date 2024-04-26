@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 
+let Faculty;
+
+if (mongoose.models.faculties) {
+  Faculty = mongoose.model('faculties')
+} else {
 // Define faculty schema
 const facultySchema = new mongoose.Schema({
   first_name: {
@@ -52,9 +57,8 @@ const facultySchema = new mongoose.Schema({
     type: Number,
     required: true
   }
-});
+})
+Faculty = mongoose.model('faculties', facultySchema);
+}
 
-// Create a Mongoose model
-const Faculties = mongoose.model('faculties', facultySchema);
-
-module.exports = Faculties;
+module.exports = Faculty

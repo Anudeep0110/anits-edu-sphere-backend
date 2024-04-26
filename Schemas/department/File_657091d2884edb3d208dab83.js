@@ -1,6 +1,11 @@
 //Form Name: Development activity - Product Development
 const mongoose = require('mongoose')
 
+let File_657091d2884edb3d208dab83;
+
+if (mongoose.models.file_657091d2884edb3d208dab83) {
+    File_657091d2884edb3d208dab83 = mongoose.model('file_657091d2884edb3d208dab83')
+} else {
 const Form = new mongoose.Schema({
     dept_id:String,
     departmentName:String,
@@ -21,6 +26,7 @@ const Form = new mongoose.Schema({
     futureWork:String,
     disseminationPlan:String,
     resourcesAndReference:String,
-});
-
-module.exports = mongoose.model('file_657091d2884edb3d208dab83',Form)
+})
+File_657091d2884edb3d208dab83 = mongoose.model('file_657091d2884edb3d208dab83',Form)
+}
+module.exports = File_657091d2884edb3d208dab83

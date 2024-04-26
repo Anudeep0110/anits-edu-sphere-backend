@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
+let Student;
 
+if (mongoose.models.students) {
+  Student = mongoose.model('students')
+} else {
 // Define student schema
 const studentSchema = new mongoose.Schema({
   first_name: {
@@ -56,9 +60,7 @@ const studentSchema = new mongoose.Schema({
     required: true,
     default: 2024
   }
-});
-
-// Create a Mongoose model
-const Student = mongoose.model('students', studentSchema);
-
+})
+Student = mongoose.model('students', studentSchema);
+}
 module.exports = Student;

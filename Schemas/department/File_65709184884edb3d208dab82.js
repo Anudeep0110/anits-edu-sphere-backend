@@ -7,6 +7,11 @@
 
 const mongoose = require('mongoose')
 
+let File_65709184884edb3d208dab82;
+
+if (mongoose.models.file_65709184884edb3d208dab82) {
+    File_65709184884edb3d208dab82 = mongoose.model('file_65709184884edb3d208dab82')
+} else {
 const Form = new mongoose.Schema({
     dept_id:String,
     courseCode:String,
@@ -25,6 +30,7 @@ const Form = new mongoose.Schema({
     learningOutcomesAndSkillsDeveloped:String,
     suggestionsForImprovement:String,
     additionalComments:String,
-});
-
-module.exports = mongoose.model('file_65709184884edb3d208dab82',Form)
+})
+File_65709184884edb3d208dab82 = mongoose.model('file_65709184884edb3d208dab82',Form)
+}
+module.exports = File_65709184884edb3d208dab82

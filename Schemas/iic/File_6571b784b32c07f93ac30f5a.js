@@ -1,4 +1,9 @@
 const mongoose = require('mongoose')
+let File_6571b784b32c07f93ac30f5a;
+
+if (mongoose.models.file_6571b784b32c07f93ac30f5a) {
+    File_6571b784b32c07f93ac30f5a = mongoose.model('file_6571b784b32c07f93ac30f5a')
+} else {
 //formname:Activities on Entrepreneurship
 const Form = new mongoose.Schema({
     iic_id:String,
@@ -11,6 +16,7 @@ const Form = new mongoose.Schema({
     Description:String,
     Outcome:String,
     Feedback:String,    
-});
-
-module.exports = mongoose.model('file_6571b784b32c07f93ac30f5a',Form)
+})
+File_6571b784b32c07f93ac30f5a = mongoose.model('file_6571b784b32c07f93ac30f5a',Form)
+}
+module.exports = File_6571b784b32c07f93ac30f5a

@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
+let File_65704787ce04c156881ab9a4;
 
+if (mongoose.models.file_65704787ce04c156881ab9a4) {
+    File_65704787ce04c156881ab9a4 = mongoose.model('file_65704787ce04c156881ab9a4')
+} else {
 // Form name: Organizing subject / domain specific Technical skills Training by experts
 const Form = new mongoose.Schema({
     tnp_id:String,
@@ -12,6 +16,7 @@ const Form = new mongoose.Schema({
     Location: String,
     ParticipantsCount: Number,
     Feedback: String,
-});
-
-module.exports = mongoose.model('file_65704787ce04c156881ab9a4', Form);
+})
+File_65704787ce04c156881ab9a4 = mongoose.model('file_65704787ce04c156881ab9a4', Form);
+}
+module.exports = File_65704787ce04c156881ab9a4

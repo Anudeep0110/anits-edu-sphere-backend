@@ -1,7 +1,11 @@
 //Form Name: Guest lectures organized
-
 const mongoose = require('mongoose')
 
+let File_657090a3884edb3d208dab7d;
+
+if (mongoose.models.file_657090a3884edb3d208dab7d) {
+    File_657090a3884edb3d208dab7d = mongoose.model('file_657090a3884edb3d208dab7d')
+} else {
 const Form = new mongoose.Schema({
     dept_id:String,
     guestLecturerName:String,
@@ -15,6 +19,7 @@ const Form = new mongoose.Schema({
     targetAudience:String,
     guestLecturerContactInformation:String,
     feedback:String,
-});
-
-module.exports = mongoose.model('file_657090a3884edb3d208dab7d',Form)
+})
+File_657090a3884edb3d208dab7d = mongoose.model('file_657090a3884edb3d208dab7d',Form)
+}
+module.exports = File_657090a3884edb3d208dab7d

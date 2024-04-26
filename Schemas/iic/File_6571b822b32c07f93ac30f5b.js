@@ -1,4 +1,10 @@
 const mongoose = require('mongoose')
+let File_6571b822b32c07f93ac30f5b;
+
+if (mongoose.models.file_6571b822b32c07f93ac30f5b) {
+    File_6571b822b32c07f93ac30f5b = mongoose.model('file_6571b822b32c07f93ac30f5b')
+} else {
+
 //formname:Activities on Innovation
 const Form = new mongoose.Schema({
     iic_id:String,
@@ -13,6 +19,7 @@ const Form = new mongoose.Schema({
     Impact:String,
     Feedback:String,
 
-});
-
-module.exports = mongoose.model('file_6571b822b32c07f93ac30f5b',Form)
+})
+File_6571b822b32c07f93ac30f5b =  mongoose.model('file_6571b822b32c07f93ac30f5b',Form)
+}
+module.exports = File_6571b822b32c07f93ac30f5b

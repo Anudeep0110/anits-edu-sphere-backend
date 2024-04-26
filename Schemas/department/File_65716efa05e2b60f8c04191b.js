@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')    // Students graduated in stipulated period of study
+let File_65716efa05e2b60f8c04191b;
 
+if (mongoose.models.file_65716efa05e2b60f8c04191b) {
+    File_65716efa05e2b60f8c04191b = mongoose.model('file_65716efa05e2b60f8c04191b')
+} else {
 const Form = new mongoose.Schema({
     dept_id:String,
     studentName:String,
@@ -18,5 +22,6 @@ const Form = new mongoose.Schema({
     awardsDistinctions:String
 
 })
-
-module.exports = mongoose.model('file_65716efa05e2b60f8c04191b',Form)
+File_65716efa05e2b60f8c04191b = mongoose.model('file_65716efa05e2b60f8c04191b',Form)
+}
+module.exports = File_65716efa05e2b60f8c04191b

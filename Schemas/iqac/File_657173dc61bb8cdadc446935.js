@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
+letFile_657173dc61bb8cdadc446935;
 
+if (mongoose.models.file_657173dc61bb8cdadc446935) {
+    File_657173dc61bb8cdadc446935 = mongoose.model('file_657173dc61bb8cdadc446935')
+} else {
 const Form = new mongoose.Schema({
     iqac_id:String,
     meetingDate:String,
@@ -12,6 +16,7 @@ const Form = new mongoose.Schema({
     nextMeetingDate:String,
     nextMeetingTime:Number
 
-});
-
-module.exports = mongoose.model('file_657173dc61bb8cdadc446935',Form) 
+})
+File_657173dc61bb8cdadc446935 = mongoose.model('file_657173dc61bb8cdadc446935',Form) 
+}
+module.exports =  File_657173dc61bb8cdadc446935
