@@ -23,4 +23,5 @@ const Form = new mongoose.Schema({
     feedback:String,
 })
 File_656efeb5569fa41d072f7679 = mongoose.model('file_656efeb5569fa41d072f7679',Form)
+}
 module.exports = File_656efeb5569fa41d072f7679
