@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-let = File_6571cccb251f44b834e6d61e;
+let  File_6571cccb251f44b834e6d61e;
 
 if (mongoose.models.file_6571cccb251f44b834e6d61e) {
     File_6571cccb251f44b834e6d61e = mongoose.model('file_6571cccb251f44b834e6d61e')

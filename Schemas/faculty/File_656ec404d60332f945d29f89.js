@@ -22,5 +22,5 @@ const Form = new mongoose.Schema({
     facultyName : String
 })
 File_656ec404d60332f945d29f89 = mongoose.model('file_656ec404d60332f945d29f89',Form)
-
+}
 module.exports = File_656ec404d60332f945d29f89
