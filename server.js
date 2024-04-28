@@ -248,13 +248,13 @@ app.post('/getformnames', async (req, res) => {
 
 
 app.post('/getformdata', async (req, res) => {
-  const id = req.body.id;
-  const studentId = req.body.studentId;
-  const employee_id = req.body.employee_id;
-  const dept = req.body.dept;
+  const id = req.body?.id;
+  const studentId = req.body?.studentId;
+  const employee_id = req.body?.employee_id;
+  const dept = req.body?.dept;
   if (studentId) {
       try {
-          const formData = await formSchemas[id].find({studentId: studentId}, { _id: 0 });
+          const formData = await formSchemas[id].find({studentId: studentId});
           res.status(200).json(formData);
       } catch (error) {
           res.status(500).json({ error: 'Internal server error' });
@@ -262,7 +262,7 @@ app.post('/getformdata', async (req, res) => {
   }
   else if (employee_id) {
     try {
-        const formData = await formSchemas[id].find({facultyId : employee_id }, { _id: 0 });
+        const formData = await formSchemas[id].find({facultyId : employee_id });
         res.status(200).json(formData);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
@@ -270,7 +270,7 @@ app.post('/getformdata', async (req, res) => {
 }
 else if (dept) {
   try {
-      const formData = await formSchemas[id].find({branch : dept }, { _id: 0 });
+      const formData = await formSchemas[id].find({branch : dept });
       res.status(200).json(formData);
   } catch (error) {
       res.status(500).json({ error: 'Internal server error' });
@@ -279,7 +279,7 @@ else if (dept) {
    else {
       try {
           // Retrieve all form data if studentId is not provided
-          const formData = await formSchemas[id].find({}, { _id: 0 });
+          const formData = await formSchemas[id].find({});
           res.status(200).json(formData);
       } catch (error) {
           res.status(500).json({ error: 'Internal server error' });
@@ -328,13 +328,16 @@ app.post('/sendtodb',(req,res) => {
   console.log(req.body)
   const data = req.body.data
   const id = req.body.formid
-  const Model = require(`./Schemas/File_${id}`)
+  const Model = formSchemas[id]
+  if(!Model) {
+    res.status(404).json({ success: false, message: 'Form not found' });
+  }
   Model.insertMany(data)
   .then(response => {
-    console.log(response)
+    res.status(200).json({ success: true, message: 'Data inserted successfully', data: response.data });
   })
   .catch(err => {
-    console.log(err)
+  res.status(500).json({ success: false, message: 'Failed to insert data', error: err.message })
   })
 })
 
@@ -676,6 +679,22 @@ app.post('/createform',async (req,res) => {
   })
   console.log(formdata);
 
+})
+
+
+app.post('/updateformdata',(req,res) => {
+  const formdata = req.body.data
+  const formId = req.body.id
+  const docId = req.body.docId
+  const Model = formSchemas[formId]
+  Model.updateOne({_id:docId},{$set:formdata})
+  .then(result => {
+    res.status(200).json(true)
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(404).json(false)
+  })
 })
 
 app.listen(8000,() => {
