@@ -15,10 +15,12 @@ async function getSchema(filename) {
     try {
       const response = await s3.getObject(getObjectParams).promise();
       console.log(response.Body);
-      fs.writeFileSync('schema.js', response.Body.toString())
+      fs.writeFileSync('./Schemas/schema.js', response.Body.toString())
       console.log('Download completed successfully.');
+      return './Schemas/schema.js'
     } catch (error) {
       console.error('Error downloading object from S3:', error);
+      return error
     }
   }
 

@@ -8,7 +8,11 @@ const Form = new mongoose.Schema({
     formname:String,
     columns:Object,
     desc:String,
-    role:String
+    role:String,
+    iscustom:{
+        type:Number,
+        required:false
+    }
 })
  Forms = mongoose.model('forms',Form)
 }

@@ -5,6 +5,14 @@ const nodemailer = require('nodemailer')
 const multer = require('multer')
 const XLSX = require('xlsx')
 const getSchema = require('./getSchema')
+const AWS = require('aws-sdk')
+require('dotenv').config();
+const s3 = new AWS.S3({
+  accessKeyId: `${process.env.AWS_ACCESS_KEY}`,
+  secretAccessKey:`${process.env. AWS_SECRET_KEY}`,
+  region: 'us-east-1',
+});
+
 
 
 
@@ -251,26 +259,46 @@ app.post('/getformdata', async (req, res) => {
   const id = req.body?.id;
   const studentId = req.body?.studentId;
   const employee_id = req.body?.employee_id;
+  const iscustom = req.body?.iscustom
   const dept = req.body?.dept;
+  let Model;
   if (studentId) {
+    if(iscustom===1){
+      await getSchema(`File_${id}.js`)
+      Model = require('./Schemas/schema.js')
+    }else{
+      Model = formSchemas[id];
+    }
       try {
-          const formData = await formSchemas[id].find({studentId: studentId});
+          const formData = await Model.find({studentId: studentId});
           res.status(200).json(formData);
       } catch (error) {
           res.status(500).json({ error: 'Internal server error' });
       }
   }
   else if (employee_id) {
+    if(iscustom===1){
+      await getSchema(`File_${id}.js`)
+      Model = require('./Schemas/schema.js')
+    }else{
+      Model = formSchemas[id];
+    }
     try {
-        const formData = await formSchemas[id].find({facultyId : employee_id });
+        const formData = await Model.find({facultyId : employee_id });
         res.status(200).json(formData);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
 else if (dept) {
+  if(iscustom===1){
+    await getSchema(`File_${id}.js`)
+    Model = require('./Schemas/schema.js')
+  }else{
+    Model = formSchemas[id];
+  }
   try {
-      const formData = await formSchemas[id].find({branch : dept });
+      const formData = await Model.find({branch : dept });
       res.status(200).json(formData);
   } catch (error) {
       res.status(500).json({ error: 'Internal server error' });
@@ -279,7 +307,13 @@ else if (dept) {
    else {
       try {
           // Retrieve all form data if studentId is not provided
-          const formData = await formSchemas[id].find({});
+          if(iscustom===1){
+            await getSchema(`File_${id}.js`)
+            Model = require('./Schemas/schema.js')
+          }else{
+            Model = formSchemas[id];
+          }
+          const formData = await Model.find({});
           res.status(200).json(formData);
       } catch (error) {
           res.status(500).json({ error: 'Internal server error' });
@@ -300,6 +334,7 @@ app.post('/getcolnames',(req,res) => {
   })
 })
 app.post('/sendtoapprovals', async(req, res) => {
+  console.log("HELLO\n\n\n\n\n\n\n\n");
   const { formid, data } = req.body;
   console.log(data);
   try {
@@ -307,6 +342,7 @@ app.post('/sendtoapprovals', async(req, res) => {
     if (!form) {
         return res.status(404).json({ success: false, message: 'Form not found' });
     }
+    console.log(form);
     if (form.role === 'student' || form.role === 'faculty') {
         const insertedData = await Approvals.create({ formid, data, approval: "pending" });
         res.status(200).json({ success: true, message: 'Data inserted successfully', data: insertedData });
@@ -324,11 +360,18 @@ app.post('/sendtoapprovals', async(req, res) => {
 });
 
 
-app.post('/sendtodb',(req,res) => {
+app.post('/sendtodb',async (req,res) => {
   console.log(req.body)
   const data = req.body.data
   const id = req.body.formid
-  const Model = formSchemas[id]
+  const iscustom = req.body.iscustom
+  let Model;
+  if(iscustom===0){
+    Model = await formSchemas[id]
+  }else{
+    await getSchema(`File_${id}.js`)
+    Model = require('./Schemas/schema.js')
+  }
   if(!Model) {
     res.status(404).json({ success: false, message: 'Form not found' });
   }
@@ -648,38 +691,89 @@ app.post('/getformnames1', async (req, res) => {
     });
 
     
+app.post('/createform', async (req, res) => {
+  const formdata = req.body;
 
-
-app.post('/createform',async (req,res) => {
-  const formdata = req.body
-  await Forms.insertMany(formdata)
-  .then(response => {
+  try {
+    const response = await Forms.insertMany(formdata);
     const formId = response[0]._id;
-    const fs = require('fs')
-    const filecontent = `
-    const mongoose = require('mongoose')
-    let Form;
-    if(mongoose.models.file_${formId}){
-        Form = mongoose.model('file_${formId}')
-    }else{
-        Form = mongoose.model('file_${formId}',new mongoose.Schema({
-            ${formdata.columns.map((col) => {
-              return `${col.name}:{type:String,required:true}\n`
-            })}
-        }))
-    }
-    
-    module.exports = Form
-    `
-    fs.writeFileSync(`./Schemas/File_${formId}.js`,filecontent)
-    res.status(200).json(response)
-  })
-  .catch(err => {
-    res.status(404).json(err)
-  })
-  console.log(formdata);
 
-})
+    const filecontent = `
+      const mongoose = require('mongoose')
+      let Form;
+      if(mongoose.models.file_${formId}){
+        Form = mongoose.model('file_${formId}')
+      } else {
+        Form = mongoose.model('file_${formId}', new mongoose.Schema({
+          ${formdata.columns.map((col) => {
+            return `${col.name}:{type:String,required:true}\n`
+          })}
+        }))
+      }
+      
+      module.exports = Form;
+    `;
+
+    // Create params object for S3 upload
+    const params = {
+      Bucket: 'anitsedusphere',
+      Key: `File_${formId}.js`,
+      Body: filecontent
+    };
+
+    console.log(formId);
+
+    // Upload file to S3 bucket
+    const s3UploadResponse = await s3.upload(params).promise();
+    console.log("File uploaded to S3:", s3UploadResponse.Location);
+
+    res.status(200).json(response);
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(404).json(err);
+  }
+
+  console.log(formdata);
+});
+
+
+// app.post('/createform',async (req,res) => {
+//   const formdata = req.body
+//   await Forms.insertMany(formdata)
+//   .then(response => {
+//     const formId = response[0]._id;
+//     const fs = require('fs')
+//     const filecontent = `
+//     const mongoose = require('mongoose')
+//     let Form;
+//     if(mongoose.models.file_${formId}){
+//         Form = mongoose.model('file_${formId}')
+//     }else{
+//         Form = mongoose.model('file_${formId}',new mongoose.Schema({
+//             ${formdata.columns.map((col) => {
+//               return `${col.name}:{type:String,required:true}\n`
+//             })}
+//         }))
+//     }
+    
+//     module.exports = Form
+//     `
+
+//     const params = {
+//       Bucket: 'anitsedusphere',
+//       Key: `File_${formId}.js`,
+//       Body: filecontent
+//     }
+//     const s3UploadResponse = await s3.upload(params).promise();
+//     console.log("File uploaded to S3:", s3UploadResponse.Location);
+//     res.status(200).json(response)
+//   })
+//   .catch(err => {
+//     res.status(404).json(err)
+//   })
+//   console.log(formdata);
+
+// })
 
 
 app.post('/updateformdata',(req,res) => {
